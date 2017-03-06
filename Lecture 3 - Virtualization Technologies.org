@@ -1,0 +1,123 @@
+#+TITLE: PA200 - Cloud Computing Concepts
+#+AUTHOR: Petr Blaho
+#+EMAIL: pblaho@redhat.com
+#+LaTeX_CLASS: beamer
+#+BEAMER_FRAME_LEVEL: 2
+#+REVEAL_HLEVEL: 3
+#+REVEAL_THEME: solarized
+#+OPTIONS: num:nil toc:nil
+#+OPTIONS: reveal_single_file:t
+
+
+* Virtualization
+  
+** Why?
+
+#+ATTR_REVEAL: :frag (appear)
+ -  Consolidation of resources
+ -  Virtual vs Physical machine inspection
+ -  Easy provisioning
+ -  Movable resource
+
+** Why?
+
+#+ATTR_REVEAL: :frag (appear)
+ -  Recoverable
+ -  Easier testing and evaluation
+ -  Duplication of environments
+ -  Isolation from host HW and OS
+
+* Hypervisors
+
+#+ATTR_REVEAL: :frag (appear)
+- native
+- hosted
+** Hypervisors
+[[./hyperviseur.png]]
+
+* Examples of native hypervisors
+
+#+ATTR_REVEAL: :frag (appear)
+-  XEN
+-  MS Hyper-V
+-  VMware ESXi
+
+* Examples of hosted hypervisors
+
+#+ATTR_REVEAL: :frag (appear)
+- QEMU
+- KVM
+- VirtualBox
+- VMware Workstation
+
+* XEN
+
+#+ATTR_REVEAL: :frag (appear)
+- founded in 2003 by XenSource, bought in 2007 by Citrix
+- 2013 under Linux Foundation as Xen Project
+- native hypervisor
+* ZEN
+[[./xen.png]]
+
+* KVM
+
+#+ATTR_REVEAL: :frag (appear)
+- Modular kernel virtualization
+- provides user space access to hw virtualization
+- started by Qumranet
+- 2007 merged into linux kernel
+* KVM
+[[./kvm.png]]
+
+* QEMU
+
+#+ATTR_REVEAL: :frag (appear)
+-  hosted hypervisor
+-  provides emulation of hw
+-  can be used with KVM for hw virtualization
+
+* Libvirt
+
+#+ATTR_REVEAL: :frag (appear)
+- Common API for hypervisor type abstraction
+- supports
+- LXC
+- KVM/QEMU, Xen, VirtualBox
+- VMware ESXi and Workstation
+- MS Hyper-V, IBM PowerVM
+* Libvirt
+[[./libvirt.png]]
+
+* oVirt
+
+#+ATTR_REVEAL: :frag (appear)
+-  virtualization management platform
+-  on top of KVM
+-  upstream for RHV
+-  engine
+-  node
+-  VDSM - virtual desktop and server manager
+
+* OpenStack
+
+#+ATTR_REVEAL: :frag (appear)
+- software platform for cloud computing
+- started in 2010 by Rackspace and NASA
+- in 2012 founded OpenStack Foundation
+* OpenStack
+[[./openstack.jpg]]
+* OpenStack
+[[./openstack-detailed.png]]
+
+* Containers
+#+ATTR_REVEAL: :frag (appear)
+ - Docker
+ - LXC
+ - OpenVZ
+ - chroot
+
+* Recap
+  #+ATTR_REVEAL: :frag (appear)
+   - Why we should use virtualization?
+   - What types of hypervisors we know? Any examples?
+   - Name some projects that uses or build on top of hypervisor technologies.
