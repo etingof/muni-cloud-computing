@@ -171,5 +171,16 @@
  - runs on SoftLayer
  - supports Java, Node.js, Go, PHP, Swift, Python
  - include OpenWhisk (similar to Amazon Lambda or Google Cloud Functions)
+* Heroku
+#+ATTR_REVEAL: :frag (appear)
+ - PaaS
+ - Ruby, Java, Node.js, Scala, Clojure, Python, PHP, and Go
+ - PostgreSQL, Redis, MongoDB
+ - Connect for Salesforce
+* Cloud Foundry
+#+ATTR_REVEAL: :frag (appear)
+ - PaaS
+ - Ruby, Go, Java, Node.js, Python, PHP, .NET
+ - IBM, Pivotal, HPE, GE, Huawei - certified providers
 * Recap
   #+ATTR_REVEAL: :frag (appear)
