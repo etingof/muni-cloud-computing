@@ -149,13 +149,27 @@
  - Orchestration (Heat) - used to manage deployments of applications on OS
  - Database as a Service (Trove)
  - Bare Metal (Ironic) - management of physical machines (PXE and IPMI as default)
- 
 * OpenShift
  #+ATTR_REVEAL: :frag (appear)
  - PaaS
  - container based deployment and management
  - Kubernetes with Docker images
  - written in Go
-
+ 
+* IBM
+* SoftLayer
+#+ATTR_REVEAL: :frag (appear)
+ - IaaS
+ - Servers (Bare Metal, Virtual)
+ - Storage (Block, File, Object, Backup)
+ - Networking (VPN, DirectLink, CDN)
+ - Management (Monitoring & Reporting, Managed Hosting)
+* Bluemix
+#+ATTR_REVEAL: :frag (appear)
+ - PaaS
+ - based on Cloud Foundry
+ - runs on SoftLayer
+ - supports Java, Node.js, Go, PHP, Swift, Python
+ - include OpenWhisk (similar to Amazon Lambda or Google Cloud Functions)
 * Recap
   #+ATTR_REVEAL: :frag (appear)
