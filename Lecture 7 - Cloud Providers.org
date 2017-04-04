@@ -1,0 +1,161 @@
+#+TITLE: PA200 - Cloud Providers
+#+AUTHOR: Petr Blaho
+#+EMAIL: pblaho@redhat.com
+#+LaTeX_CLASS: beamer
+#+BEAMER_FRAME_LEVEL: 3
+#+REVEAL_HLEVEL: 3
+#+REVEAL_THEME: solarized
+#+OPTIONS: num:nil toc:nil
+#+OPTIONS: reveal_single_file:t
+
+* Recap of Cloud Types
+
+  #+ATTR_REVEAL: :frag (appear)
+  -  More detailed in Cloud Service Deliver Models
+  -  Datacenter Virtualization -- oVirt
+  -  IaaS -- Infrastructure as a Service -- OpenStack
+  -  PaaS -- Platform as a Servise - OpenShift
+  -  SaaS -- Software as a Service -- Microsoft Dynamics CRM -- mostly
+    abandoned
+  -  xPaaS -- extended PaaS -- integrates aPaaS (Application), iPaaS
+    (Integration), dvPaaS (Data Virtualization), bpmPaaS (Business
+    Process Management), mPaaS (Mobile)
+
+* Amazon
+
+**  AWS
+   #+ATTR_REVEAL: :frag (appear)
+   - Amazon Web Services
+   - Web service backend providing libraries for majority of modern web programming languages
+   - Provides also database access and storage
+   - Features mobile platform as well
+   - REST-style HTTP, SOAP
+
+**  S3
+   #+ATTR_REVEAL: :frag (appear)
+   - Simple Storage Service
+   - Provides API-driven Object storage
+   - Stored files are abstracted all the way to objects and are easy to
+    represent in high-level programming languages
+   - REST-style HTTP, SOAP, BitTorrent
+
+**  EC2
+   #+ATTR_REVEAL: :frag (appear)
+   - Elastic Compute Cloud (IaaS)
+   - KVM-based
+   - Provides backend to earlier mentioned services as well as ability to
+    sell „Virtual private cloud“ to customers
+   - OSs (Linux, OpenSolaris, Windows, NetBSD, ...)
+  
+** Other
+   #+ATTR_REVEAL: :frag (appear)
+   - Elastic Beanstalk (PaaS)
+   - AWS Lambda (event-driven, serverless computing - FaaS)
+   - Glacier (storage for archives or backups)
+   - Elastic Block Store (block-level storage)
+   - SimpleDB, DynamoDB, Elastic MapReduce, ...
+
+* Google
+
+* Cloud Platform
+ #+ATTR_REVEAL: :frag (appear)
+ - Rich platform exposing functionality over REST
+ - Primarily developed to support Google's core services (search, youtube, gmail)
+ - Later extended with the business needs driven by Android, its integration with services
+ - Nowadays featuring rich set of programming frameworks, hosting services and database engines
+   
+* App Engine
+ #+ATTR_REVEAL: :frag (appear)
+ - Web apps on Google's infrastructure (PaaS)
+ - Python, Java (JVM), Go, PHP, Node.js
+ - Easy deploy, monitoring, scaling
+ - Limited languages and tools (SQL vs. GQL)
+
+* Compute Engine
+ #+ATTR_REVEAL: :frag (appear)
+ - IaaS
+ - Compute Engine Unit (GCEU) - abstraction of computation power
+ - at the backend kvm based
+
+* Storage
+ #+ATTR_REVEAL: :frag (appear)
+ - IaaS for storage
+ - REST-like HTTP access
+ - compatible with Amazon S3
+
+* BigQuery
+ #+ATTR_REVEAL: :frag (appear)
+ - web service (with REST-like interface)
+ - work with Storage
+ - SQL dialect, returns JSON
+ - can be integrated via HTTP (Spreadsheets)
+
+* Red Hat
+  #+ATTR_REVEAL: :frag (appear)
+  -  Provider of solutions that can serve either as a private or public
+    cloud
+  -  Also provider of PaaS/xPaaS solution (OpenShift)
+  -  Involved in development of cloud-oriented apps ranging from Level 1
+    (kernel, KVM), through management software (OpenStack, oVirt) and
+    PaaS up to application level (Jboss Enterprise Application Platform,
+    Data Virtualization, etc.)
+
+* oVirt
+ #+ATTR_REVEAL: :frag (appear)
+ - open source upstream for Red Hat Virtualization
+ - can manage networks, CPUs, storages
+ - with VM it can do live migration, live snapshots
+ - integrate with many open source projects (OpenStack, Foreman, ManageIQ, ...)
+
+** oVirt Engine
+ #+ATTR_REVEAL: :frag (appear)
+ - Java (GWT, WildFly)
+ - REST-style HTTP API
+ - can integrate with LDAP or AD
+
+** oVirt Node
+ #+ATTR_REVEAL: :frag (appear)
+ - RHEL, CentOS, Fedora or Debian with KVM
+ - VDSM (Python daemon) manages resources and VMs
+ - gets commands from Engine and reports back to it
+
+* OpenStack
+ #+ATTR_REVEAL: :frag (appear)
+ - open source platform for cloud computing (mainly IaaS)
+ - written in Python
+ - each Project aims to solve one part of cloud computing needs
+ - pluggable w/r/t backends and between Projects
+
+** Identity (Keystone)
+ #+ATTR_REVEAL: :frag (appear)
+ - central user management and authentication service
+ - can use directory service backend (LDAP)
+
+** Compute (Nova)
+ #+ATTR_REVEAL: :frag (appear)
+ - layer on top of hypervisor(s)
+ - manages compute resources - VMs and containers
+
+** Networking (Neutron)
+ #+ATTR_REVEAL: :frag (appear)
+ - manages networks and IP addresses for VMs
+ - can use SDN technologies (OpenFlow)
+ - load balancing, floating IPs, firewall, VPN, ...
+  
+** Other
+ #+ATTR_REVEAL: :frag (appear)
+ - Block Storage (Cinder) - many storage providers
+ - Image Storage (Glance) - images to boot from and to store snapshots of VMs to
+ - Orchestration (Heat) - used to manage deployments of applications on OS
+ - Database as a Service (Trove)
+ - Bare Metal (Ironic) - management of physical machines (PXE and IPMI as default)
+ 
+* OpenShift
+ #+ATTR_REVEAL: :frag (appear)
+ - PaaS
+ - container based deployment and management
+ - Kubernetes with Docker images
+ - written in Go
+
+* Recap
+  #+ATTR_REVEAL: :frag (appear)
