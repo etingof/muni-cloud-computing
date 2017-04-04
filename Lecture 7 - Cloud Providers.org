@@ -184,3 +184,7 @@
  - IBM, Pivotal, HPE, GE, Huawei - certified providers
 * Recap
   #+ATTR_REVEAL: :frag (appear)
+ - not a full enumeration of subjects on market
+ - offerings are different in technologies, services and prices
+ - offerings often overlaps in a lot of parts
+ - offerings often provides some added value for allied services / products
