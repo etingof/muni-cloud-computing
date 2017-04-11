@@ -1,0 +1,168 @@
+#+TITLE: PA200 - OpenStack - Technical Insight
+#+AUTHOR: Petr Blaho
+#+EMAIL: pblaho@redhat.com
+#+LaTeX_CLASS: beamer
+#+BEAMER_FRAME_LEVEL: 2
+#+REVEAL_HLEVEL: 3
+#+REVEAL_THEME: solarized
+#+OPTIONS: num:nil toc:nil
+#+OPTIONS: reveal_single_file:t
+
+* OpenStack Overview
+** Schema
+   [[./openstack.jpg]]
+** Conceptual Schema
+   #+ATTR_HTML: :height 550px
+   [[./openstack-conceptual-arch-kilo.png]]
+** Logical Schema
+   #+ATTR_HTML: :height 550px
+   [[./openstack-logical-arch-kilo.png]]
+* OpenStack Components (Projects)
+** Identity (Keystone)
+   #+ATTR_REVEAL: :frag (appear)
+   - manages users, projects, domains, roles, groups
+   - authorization scopes - unscoped, project, domain
+   - role-based access control (RBAC)
+   #+BEGIN_SRC
+   "identity:create_user": "role:admin and domain_id:%(user.domain_id)s"
+   #+END_SRC
+** Dashboard (Horizon)
+   #+ATTR_REVEAL: :frag (appear)
+   - web UI
+   - allow to manage:
+   - users, groups, roles, projects
+   - instances, images, volumes
+   - quotas, cloud resources, ...
+** Compute (Nova)
+*** Hypervisors
+    #+ATTR_REVEAL: :frag (appear)
+    - Baremetal
+    - Docker
+    - Hyper-V
+    - Kernel-based Virtual Machine (KVM)
+    - Linux Containers (LXC)
+    - Quick Emulator (QEMU)
+    - User Mode Linux (UML)
+    - VMware vSphere
+    - Xen
+    - Feature matrix - [[https://docs.openstack.org/developer/nova/support-matrix.html]]
+*** Services
+    #+ATTR_REVEAL: :frag (appear)
+    - nova-api service - API endpoints
+    - nova-api-metadata service - metadata about instances
+    - nova-compute service - talks with hypervisors via XenAPI, libvirt, VMWareAPI
+    - nova-placement-api service - tracks resource provider inventories and usages
+    - nova-scheduler service - decides on which compute host will instance be run
+    - nova-conductor module - mediator between nova-compute and database
+*** Services cont.
+    #+ATTR_REVEAL: :frag (appear)
+    - nova-consoleauth daemon - authorizes tokens for console proxies users
+    - nova-novncproxy, nova-spicehtml5proxy, nova-xvpvncproxy daemons
+*** Queue
+    #+ATTR_REVEAL: :frag (appear)
+    - central hub for messaging
+    - RabbitMQ
+    - ZeroMQ
+    - another AMQP
+*** SQL database
+    #+ATTR_REVEAL: :frag (appear)
+    - store build-time and run-time states, like:
+    - available instance types
+    - instances in use
+    - available networks
+    - projects
+    - any DB supported by SQLAlchemy
+    - SQLite3, MySQL, MariaDB, PostgreSQL
+** Object Storage (Swift)
+*** Characteristics
+    #+ATTR_REVEAL: :frag (appear)
+    - objects have URL
+    - objects are 3x replicated over zones (group of drives, node, rack)
+    - objects have metadata
+    - RESTful HTTP API
+    - objects can be anywhere in the cluster
+    - cluster scales in a linear way by adding nodes without downtime
+*** Components
+    #+ATTR_REVEAL: :frag (appear)
+    - proxy servers - handle incoming API requests
+    - rings - map logical names of data to locations on particular disks
+    - zones - isolate data from other zones
+    - account and containers - Account -> Containers -> Objects
+    - objects - data
+    - partitions - stores objects, account and container dbs, help manage locations where data lives
+*** Schema
+    [[./objectstorage-buildingblocks.png]]
+** Block Storage (Cinder)
+*** Backends
+    #+ATTR_REVEAL: :frag (appear)
+   - default implementation uses LVM
+   - NFS
+   - GlusterFS
+   - others
+*** Features
+    #+ATTR_REVEAL: :frag (appear)
+    - volumes and snapshots management
+    - migrating volumes
+    - bandwidth limiting for volume copying
+    - oversubscription
+    - expose backend specific capabilities
+** Networking (Neutron)
+*** Features
+    #+ATTR_REVEAL: :frag (appear)
+    - Layer 2 - networks, ports, segments
+    - Layer 3 - floating IPs, routers, subnets
+    - Services - LBaaS, FWaaS, VPNaaS
+*** Architecture
+    #+ATTR_REVEAL: :frag (appear)
+    - neutron-*-agent - run on each hypervisor
+    - neutron-dhcp-agent - DHCP
+    - neutron-l3-agent - L3/NAT forwarding to provide external network access to VMs
+    - neutron-metering-agent - L3 traffic metering
+** Image Service (Glance)
+   #+ATTR_REVEAL: :frag (appear)
+   - stores disk and server images for instances to boot from
+   - can use Cinder as backend
+** Telemetry (Ceilometer)
+*** Features
+    #+ATTR_REVEAL: :frag (appear)
+    - aodh - alarms
+    - gnocchi - measurements - [[https://docs.openstack.org/admin-guide/telemetry-measurements.html]]
+    - panko - events
+    - data retrieval - query language to get data and statistics
+    - data pipelines - processes data before published
+*** Architecture
+    #+ATTR_REVEAL: :frag (appear)
+    - backends:
+    - measurements - gnocchi
+    - alarms - MySQL, PostgreSQL
+    - events - ElasticSearch, MongoDB, MySQL, PostgreSQL, HBase
+    - hypervisors: libvirt, Hyper-V, XEN, VMWare vSphere
+    - networking: OpenStack, SDN - OpenDaylight, OpenContrail
+** Orchestration (Heat)
+    #+ATTR_REVEAL: :frag (appear)
+   - orchestrating clouds
+   - automatically configures resources
+   - deploys resources
+** Bare-Metal Provisioning (Ironic)
+   #+ATTR_REVEAL: :frag (appear)
+   - provides bare metal machines instead of VM
+   - uses PXE and agent to deploy
+** Database (Trove)
+    #+ATTR_REVEAL: :frag (appear)
+    - MySQL, MongoDB, Cassandra
+** other
+    #+ATTR_REVEAL: :frag (appear)
+   - Elastic Map Reduce (Sahara)
+   - Messaging Service (Zaqar)
+   - Shared Filesystems (Manila)
+   - DNS Service (Designate)
+   - Key Management (Barbican)
+   - Containers (Magnum)
+   - Application Catalog (Murano)
+   - Governance (Congress)
+* OpenStack Clients (CLI, python, web UI)
+  - demo
+* OpenStack Contribution
+    #+ATTR_REVEAL: :frag (appear)
+  - https://www.openstack.org/
+  - [[https://review.openstack.org/]]
