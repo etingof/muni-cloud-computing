@@ -14,18 +14,19 @@
 ** Why?
 
 #+ATTR_REVEAL: :frag (appear)
- -  Consolidation of resources
- -  Virtual vs Physical machine inspection
- -  Easy provisioning
- -  Movable resource
+ - Consolidation of resources
+ - Scalability
+ - Movable resource
+ - Recoverable
+ - Easy provisioning - TODO: remove it?
 
 ** Why?
 
 #+ATTR_REVEAL: :frag (appear)
- -  Recoverable
- -  Easier testing and evaluation
- -  Duplication of environments
- -  Isolation from host HW and OS
+ - Virtual vs Physical machine inspection TODO: agentless monitoring, no credentails needed, from outside for VMs
+ - Easier testing and evaluation
+ - Duplication of environments TODO: cloning of machines / images / snapshots
+ - Isolation from host HW and OS
 
 * Hypervisors
 
@@ -45,7 +46,7 @@
 * Examples of hosted hypervisors
 
 #+ATTR_REVEAL: :frag (appear)
-- QEMU
+- QEMU TODO: maybe not?
 - KVM
 - VirtualBox
 - VMware Workstation
