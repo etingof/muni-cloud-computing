@@ -15,8 +15,9 @@
 
 #+ATTR_REVEAL: :frag (appear)
  -  Consolidation of resources
- -  Virtual vs Physical machine inspection
- -  Easy provisioning
+ -  Hardware isolation
+ -  Virtual vs Physical machine monitoring
+ -  Easy provisioning and repair
  -  Movable resource
 
 ** Why?
@@ -30,8 +31,10 @@
 * Hypervisors
 
 #+ATTR_REVEAL: :frag (appear)
-- native
+- native or bare-metal
 - hosted
+- full or para-virtualization
+
 ** Hypervisors
 [[./hyperviseur.png]]
 
@@ -49,6 +52,7 @@
 - KVM
 - VirtualBox
 - VMware Workstation
+- FreeBSD bhyve
 
 * XEN
 
@@ -73,8 +77,22 @@
 
 #+ATTR_REVEAL: :frag (appear)
 -  hosted hypervisor
--  provides emulation of hw
--  can be used with KVM for hw virtualization
+-  provides CPU and/or hardware emulation
+-  can be used with KVM (hardware-only emulation)
+
+* Virtualization management
+
+#+ATTR_REVEAL: :frag (appear)
+- Common API to different hypervisors
+- High-level VM lifecycle abstraction
+- Cloud
+
+* Examples of virtualization managers
+
+#+ATTR_REVEAL: :frag (appear)
+- libvirt
+- oVirt
+- OpenStack
 
 * Libvirt
 
@@ -109,7 +127,13 @@
 * OpenStack
 [[./openstack-detailed.png]]
 
-* Containers
+* Hypervisors vs Containers
+
+#+ATTR_REVEAL: :frag (appear)
+- Hypervisors spawn VMs
+- Containers isolates apps to namespaces
+
+* Example containers
 #+ATTR_REVEAL: :frag (appear)
  - Docker
  - LXC
