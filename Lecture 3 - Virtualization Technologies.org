@@ -10,9 +10,70 @@
 
 
 * Virtualization
-  
-** Why?
 
+* Warm-up
+#+ATTR_REVEAL: :frag (appear)
+ - What is cloud computing?
+ - Cloud traits?
+ - Cloud deployment models?
+
+* What is cloud computing
+#+ATTR_REVEAL: :frag (appear)
+ - Usage model of computer resources
+
+* Cloud traits
+#+ATTR_REVEAL: :frag (appear)
+ - On-demand self-service
+ - Broad network access
+ - Resource pooling
+ - Rapid elasticity
+ - Measured Service
+
+* Cloud service models
+#+ATTR_REVEAL: :frag (appear)
+ - Software as a Service (SaaS)
+ - Platform as a Service (PaaS)
+ - Infrastructure as a Service (IaaS)
+
+* Cloud deployment models
+#+ATTR_REVEAL: :frag (appear)
+ - Public Cloud
+ - Private Cloud
+ - Hybrid Cloud
+ - Community Cloud
+
+* History of virtualization
+#+ATTR_REVEAL: :frag (appear)
+ - How old is virtualization?
+
+* History of virtualization
+#+ATTR_REVEAL: :frag (appear)
+ - Early 1960: batch processing
+ - 1967: first time-sharing system - IBM S/370-67
+ - 2005: Intel VT-x, AMD-V - new instruction set
+ - 2005-: VMware, VirtualBox, KVM...
+
+* What exactly is virtualization?
+#+ATTR_REVEAL: :frag (appear)
+ - Multi-tasking vs multi-threading vs virtualization?
+ - CPUs: Multi-core vs Hyper-threading
+ - Containers vs OS virtualization
+
+* How did virtualization work before 2005?
+#+ATTR_REVEAL: :frag (appear)
+ - Well, sloooowly...
+
+* Is it cloud already?
+#+ATTR_REVEAL: :frag (appear)
+ - What is virtualization?
+ - What is cloud?
+
+* Is it cloud already?
+#+ATTR_REVEAL: :frag (appear)
+ - Hypervisors
+ - Virtualization management and services
+
+* Cloud features
 #+ATTR_REVEAL: :frag (appear)
  -  Consolidation of resources
  -  Hardware isolation
@@ -20,8 +81,7 @@
  -  Easy provisioning and repair
  -  Movable resource
 
-** Why?
-
+** Cloud features
 #+ATTR_REVEAL: :frag (appear)
  -  Recoverable
  -  Easier testing and evaluation
@@ -29,109 +89,124 @@
  -  Isolation from host HW and OS
 
 * Hypervisors
-
 #+ATTR_REVEAL: :frag (appear)
-- native or bare-metal
-- hosted
-- full or para-virtualization
+ - native or bare-metal
+ - hosted
+ - full or para-virtualization
 
 ** Hypervisors
 [[./hyperviseur.png]]
 
 * Examples of native hypervisors
-
 #+ATTR_REVEAL: :frag (appear)
--  XEN
--  MS Hyper-V
--  VMware ESXi
+ -  XEN
+ -  MS Hyper-V
+ -  VMware ESXi
 
 * Examples of hosted hypervisors
-
 #+ATTR_REVEAL: :frag (appear)
-- QEMU
-- KVM
-- VirtualBox
-- VMware Workstation
-- FreeBSD bhyve
+ - QEMU
+ - KVM
+ - VirtualBox
+ - VMware Workstation
+ - FreeBSD bhyve
 
 * XEN
-
 #+ATTR_REVEAL: :frag (appear)
-- founded in 2003 by XenSource, bought in 2007 by Citrix
-- 2013 under Linux Foundation as Xen Project
-- native hypervisor
+ - founded in 2003 by XenSource, bought in 2007 by Citrix
+ - 2013 under Linux Foundation as Xen Project
+ - native hypervisor
+
 * ZEN
 [[./xen.png]]
 
 * KVM
-
 #+ATTR_REVEAL: :frag (appear)
-- Modular kernel virtualization
-- provides user space access to hw virtualization
-- started by Qumranet
-- 2007 merged into linux kernel
+ - Modular kernel virtualization
+ - provides user space access to hw virtualization
+ - started by Qumranet
+ - 2007 merged into linux kernel
+
 * KVM
 [[./kvm.png]]
 
 * QEMU
-
 #+ATTR_REVEAL: :frag (appear)
--  hosted hypervisor
--  provides CPU and/or hardware emulation
--  can be used with KVM (hardware-only emulation)
+ -  hosted hypervisor
+ -  provides CPU and/or hardware emulation
+ -  can be used with KVM (hardware-only emulation)
+
+* QEMU
+#+ATTR_REVEAL: :frag (appear)
+ - Other practical QEMU use-cases?
+
+* Type 1 vs type 2 confusion
+#+ATTR_REVEAL: :frag (appear)
+ - Linux with KVM
+ - FreeBSD with bhyve
+
+* Full vs para-virtualization
+#+ATTR_REVEAL: :frag (appear)
+ - Full: run unmodified OS image
+ - Para: OS explicitly calls hypervisor
+
+* Para-virtualization
+#+ATTR_REVEAL: :frag (appear)
+ - Why?
 
 * Virtualization management
-
 #+ATTR_REVEAL: :frag (appear)
-- Common API to different hypervisors
-- High-level VM lifecycle abstraction
-- Cloud
+ - Common API to different hypervisors
+ - High-level VM lifecycle abstraction
+ - Cloud services: networks, storage...
+
+* Cloud services
+#+ATTR_REVEAL: :frag (appear)
+ - Automated network configuration
+
 
 * Examples of virtualization managers
-
 #+ATTR_REVEAL: :frag (appear)
-- libvirt
-- oVirt
-- OpenStack
+ - libvirt
+ - oVirt
+ - OpenStack
 
 * Libvirt
-
 #+ATTR_REVEAL: :frag (appear)
-- Common API for hypervisor type abstraction
-- supports
-- LXC
-- KVM/QEMU, Xen, VirtualBox
-- VMware ESXi and Workstation
-- MS Hyper-V, IBM PowerVM
+ - Common API for hypervisor type abstraction supports
+ - LXC
+ - KVM/QEMU, Xen, VirtualBox
+ - VMware ESXi and Workstation
+ - MS Hyper-V, IBM PowerVM
+
 * Libvirt
 [[./libvirt.png]]
 
 * oVirt
-
 #+ATTR_REVEAL: :frag (appear)
--  virtualization management platform
--  on top of KVM
--  upstream for RHV
--  engine
--  node
--  VDSM - virtual desktop and server manager
+ -  virtualization management platform
+ -  on top of KVM
+ -  upstream for RHV
+ -  engine
+ -  node
+ -  VDSM - virtual desktop and server manager
 
 * OpenStack
-
 #+ATTR_REVEAL: :frag (appear)
-- software platform for cloud computing
-- started in 2010 by Rackspace and NASA
-- in 2012 founded OpenStack Foundation
+ - software platform for cloud computing
+ - started in 2010 by Rackspace and NASA
+ - in 2012 founded OpenStack Foundation
+
 * OpenStack
 [[./openstack.jpg]]
+
 * OpenStack
 [[./openstack-detailed.png]]
 
 * Hypervisors vs Containers
-
 #+ATTR_REVEAL: :frag (appear)
-- Hypervisors spawn VMs
-- Containers isolates apps to namespaces
+ - Hypervisors spawn VMs
+ - Containers isolates apps to namespaces
 
 * Example containers
 #+ATTR_REVEAL: :frag (appear)
@@ -141,7 +216,7 @@
  - chroot
 
 * Recap
-  #+ATTR_REVEAL: :frag (appear)
-   - Why we should use virtualization?
-   - What types of hypervisors we know? Any examples?
-   - Name some projects that uses or build on top of hypervisor technologies.
+#+ATTR_REVEAL: :frag (appear)
+ - Why should we use virtualization?
+ - What types of hypervisors we know? Any examples?
+ - Name some projects that uses or build on top of hypervisor technologies?
