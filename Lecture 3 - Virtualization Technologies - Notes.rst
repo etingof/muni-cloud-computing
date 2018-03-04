@@ -1,29 +1,115 @@
 
-Why virtualization
-==================
+Warm-up
+=======
 
-Before the virtualization era we had a bunch of individual computers running
-an OS packed with applications inside. The problem with that approach are numerous:
+Let's rehearse on the previous lectures...
 
-* The whole computer is utilized at once. It can be over or underpowered for the job
-* If the computer breaks down, the OS and the apps disappear
-* Kind of OS is fixed and hard to change
+What is cloud computing?
+------------------------
 
-What we would like to do is to share a single hardware computer among many instances
-of different OSes.
+Cloud computing is a model for enabling ubiquitous, convenient, on-demand network access
+to a shared pool of configurable computing resources (e.g., networks, servers, storage, applications,
+and services) that can be rapidly provisioned and released with minimal management effort or
+service provider interaction.
 
-First commercial implementation of a virtualized system was introduced by IBM in 1966.
+Cloud traits
+------------
+
+* On-demand self-service
+  – Focuses on delivering IT services driven by user requests
+  – No human interaction with the cloud provider
+  – Cloud computing provides a means of delivering computing services that makes the underlying
+    technology, beyond the user device, almost invisible
+
+* Broad network access
+  – Focuses on delivering IT services anytime, anywhere, and through user-chosen devices
+
+* Resource pooling
+  - Computing resources merged into pools for better utilization
+
+* Rapid elasticity
+  – Resources can be dynamically allocated and contracted based on the
+    requirements of the underlying workload and the usage characteristics
+
+* Measured service
+  – Focuses on delivering IT services that can be metered for usage and charged for (if needed) through
+    pricing models including subscription, usage pricing – Service level agreements (SLAs)
+
+Cloud service models
+--------------------
+
+* Software as a Service (SaaS)
+* Platform as a Service (PaaS)
+* Infrastructure as a Service (IaaS)
+
+Cloud deployment models
+-----------------------
+
+* Public Cloud
+* Private Cloud
+* Hybrid Cloud
+* Community Cloud
+
+The history of virtualization
+=============================
+
+How old is virtualization?
+--------------------------
+
+Half a century!
+
+The most successful computer of the time, S/360 mainframe system, did not provide virtual
+memory and privilege separation at the CPU level. The mainstream computing model of the
+time has been about non-interactive, batched jobs.
+
+The concepts of virtualization have not been researched and tried until late sixties within
+the CP-40 project that eventually resulted in the first real and full virtualization support
+which appeared in IBM S/370-67 in 1966.
+
 Although the time-sharing technology was lost out to batch-processing architecture in
 political battle of the time.
 
-The revival of virtualization happened around 2005 when PC CPU vendors introduced new
+Many companies were coming up with niche products offering virtualization features. But they
+were not really successful till around 2005 when PC CPU vendors introduced new
 CPU instructions supporting virtualization - the Intel VT-x and AMD-V CPUs.
 
 By this moment clouds have begun to form...
 
-And we got this ability to run multiple virtual machines on top of a physical computer.
+What exactly is virtualization?
+===============================
 
-Those virtual machines can be created different (in part of their "hardware" capabilities)
+Multi-tasking: OS gives each task (process) the impression that it is the only one running
+on the system and has full access to the system resources (memory, I/O)
+
+Multi-threading: execution environment allows each process to run multiple code flows in parallel.
+
+Virtualization: each instance of the OS has the impression that it is the only OS running
+on the system and have full access to the system resources
+
+Containers: give a set of tasks, the application, the impression that it is the only running one
+running within the OS.
+
+In fact, with Intel 80386+ CPUs virtualization was possible based on various tricks. Like putting
+hypervisor at ring 0, VMs at ring 1 and apps at ring 2. Though this was complicated and slow.
+
+Virtualization has become practical with better CPU support for VM management.
+
+Is it cloud already?
+====================
+
+So what is virtualization from technical perspective? How is it different from multitasking?
+
+Once virtualization is in place, what it makes to become a cloud?
+
+To provide cloud services we need:
+
+- hypervisor(s) to control the lifecycle of the virtual machines
+- higher-level virtualization management infrastructure and additional services
+
+Cloud features
+==============
+
+The virtual machines can be created different (in part of their "hardware" capabilities)
 to reflect OS/application requirements on the hardware.
 
 It is very easy to unroll a new machine and install OS onto it. It can be done fully
@@ -102,10 +188,16 @@ At the same time, since Linux and FreeBSD are still general-purpose operating sy
 other applications competing for VM resources, KVM and bhyve can also be categorized as type-2
 hypervisors.
 
+Native vs hosted confusion
+--------------------------
+
 To add more confusion, the hypervisers sub-divide onto so-called full virtualization
-and para-virtualization capabilities. The latter involves modifying guest OS to call hypervisor's
-services explicitly instead of letting the hypervisor emulate hardware interfaces to the quest
-OS.
+and para-virtualization capabilities.
+
+The latter involves modifying guest OS to call hypervisor's services explicitly instead
+of letting the hypervisor emulate hardware interfaces to the quest OS. Para-virtualization
+used to have more sense at the times when hardware support for virtualization has not
+been fully implemented.
 
 Virtualization management
 =========================
