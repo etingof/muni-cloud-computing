@@ -17,23 +17,30 @@
  - Cloud traits?
  - Cloud deployment models?
 
-* What is cloud computing
+* What is cloud computing?
 #+ATTR_REVEAL: :frag (appear)
- - Usage model of computer resources
+ 1. Usage model of computer resources
+ 2. Networked computers
+ 3. Distributed computing technology
+ 4. A collection of heterogeneous computers
 
-* Cloud traits
+* Cloud traits?
 #+ATTR_REVEAL: :frag (appear)
- - On-demand self-service
- - Broad network access
- - Resource pooling
- - Rapid elasticity
- - Measured Service
+ 1. High availability
+ 2. On-demand self-service
+ 3. High performance
+ 4. Broad network access
+ 5. Resource pooling
+ 6. Rapid elasticity
+ 7. Measured Service
 
-* Cloud service models
+* Cloud service models?
 #+ATTR_REVEAL: :frag (appear)
- - Software as a Service (SaaS)
- - Platform as a Service (PaaS)
- - Infrastructure as a Service (IaaS)
+ 1. Software as a Service
+ 2. Application as a Service
+ 3. Platform as a Service
+ 4. Infrastructure as a Service
+ 5. Data as a Service
 
 * Cloud deployment models
 #+ATTR_REVEAL: :frag (appear)
