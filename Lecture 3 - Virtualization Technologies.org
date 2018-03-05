@@ -226,8 +226,54 @@
  - OpenVZ
  - chroot
 
-* Recap
+* Recap: the age of virtualization?
 #+ATTR_REVEAL: :frag (appear)
- - Why should we use virtualization?
- - What types of hypervisors we know? Any examples?
- - Name some projects that uses or build on top of hypervisor technologies?
+
+ 1. IBM 700/7000, since 1952
+ 2. CP-40 research project, early sixties
+ 3. IBM S/370-67, 1966
+ 4. Gameframes, since 2007
+ 5. Intel VT-x, AMD-V, since 2005
+
+* Recap: technologies relevant to virtualization?
+#+ATTR_REVEAL: :frag (appear)
+
+ 1. Multi-tasking
+ 2. Multi-threading processes
+ 3. Containers
+ 4. Hyper-threading CPU
+ 5. Multi-core CPU
+ 6. Intel VT-x, AMD-V
+
+* Recap: hypervisor types?
+#+ATTR_REVEAL: :frag (appear)
+
+ 1. Hybryd
+ 2. Bare-metal
+ 3. Native
+ 4. Hosted
+ 5. Para-hypervisor
+
+* Recap: what makes up a cloud?
+#+ATTR_REVEAL: :frag (appear)
+
+ 1. one hypervisor
+ 2. one or more hypervisors
+ 3. baremetal computers
+ 4. baremetal switches and routers
+ 5. networking service
+
+* Recap: virtualization vs containers?
+#+ATTR_REVEAL: :frag (appear)
+
+ 1. We can run OS in a container
+ 2. We can run different OS'es in containers
+ 3. We can run VM in a container
+ 4. Containers are more secure than VM
+ 5. Containers consume less resources than VM
+ 6. We can run Windows app in Linux container
+
+* Bonus question: matreshka cloud?
+#+ATTR_REVEAL: :frag (appear)
+
+ - Can you run a cloud in a cloud?

@@ -88,14 +88,15 @@ flows in parallel.
 
 Multi-tasking: OS gives each task (process) the impression that it is the only
 one running on the system and has full access to the system resources
-(memory, I/O)
+(memory, I/O). The crucial HW component for VM to work is MMU.
 
 Virtualization: each instance of the OS has the impression that it is the
 only OS running on the CPU/system and have full access to the system
-resources
+resources (e.g. each OS thinks that it has its own CPUs, memory, IO).
 
 Containers: give a set of tasks, the application, the impression that it is
-the only one running within the OS.
+the only one running within the OS. Yet, containers share the same OS kernel
+instance.
 
 Not directly relevant to the topic of virtualization, but the other
 place where parallelism may be present is the CPU. With the advancements
