@@ -1,4 +1,4 @@
-% Created 2018-03-05 Mon 22:22
+% Created 2018-03-05 Mon 22:44
 % Intended LaTeX compiler: pdflatex
 \documentclass[11pt]{article}
 \usepackage[utf8]{inputenc}
@@ -30,10 +30,10 @@
 
 
 \section*{Virtualization}
-\label{sec:org94f2f02}
+\label{sec:orgef62a99}
 
 \section*{Warm-up}
-\label{sec:org14080cd}
+\label{sec:orgfa15cdd}
 \begin{itemize}
 \item What is cloud computing?
 \item Cloud traits?
@@ -41,7 +41,7 @@
 \end{itemize}
 
 \section*{What is cloud computing?}
-\label{sec:orge3bf509}
+\label{sec:org47dc5e8}
 \begin{enumerate}
 \item Usage model of computer resources
 \item Networked computers
@@ -50,7 +50,7 @@
 \end{enumerate}
 
 \section*{Cloud traits?}
-\label{sec:org78ee609}
+\label{sec:orgf228b2b}
 \begin{enumerate}
 \item High availability
 \item On-demand self-service
@@ -62,7 +62,7 @@
 \end{enumerate}
 
 \section*{Cloud service models?}
-\label{sec:orga335e97}
+\label{sec:orgf23ebd5}
 \begin{enumerate}
 \item Software as a Service
 \item Application as a Service
@@ -72,7 +72,7 @@
 \end{enumerate}
 
 \section*{Cloud deployment models}
-\label{sec:orgda66f46}
+\label{sec:org4e223e2}
 \begin{enumerate}
 \item Public Cloud
 \item Private Cloud
@@ -83,13 +83,13 @@
 \end{enumerate}
 
 \section*{History of virtualization}
-\label{sec:orgf92238a}
+\label{sec:orgb36919a}
 \begin{itemize}
 \item How old is virtualization?
 \end{itemize}
 
 \section*{History of virtualization}
-\label{sec:org8ad1d5e}
+\label{sec:org87511df}
 \begin{itemize}
 \item Early 1960: batch processing
 \item 1967: first time-sharing system - IBM S/370-67
@@ -98,7 +98,7 @@
 \end{itemize}
 
 \section*{What exactly is virtualization?}
-\label{sec:org8cf695f}
+\label{sec:org56a585e}
 \begin{itemize}
 \item Multi-programming vs multi-tasking
 \item Multi-threading vs multi-tasking vs virtualization?
@@ -107,48 +107,48 @@
 \end{itemize}
 
 \section*{How did virtualization work before 2005?}
-\label{sec:orgf8e6a59}
+\label{sec:org0beab64}
 \begin{itemize}
 \item Well, sloooowly\ldots{}
 \item Basing on 80386 CPU features
 \end{itemize}
 
 \section*{Is it cloud already?}
-\label{sec:org25e29ea}
+\label{sec:org116f487}
 \begin{itemize}
 \item What is virtualization?
 \item What is cloud?
 \end{itemize}
 
 \section*{Is it cloud already?}
-\label{sec:org3dce481}
+\label{sec:org6eaf2c1}
 \begin{itemize}
 \item Hypervisors
 \item Virtualization management and services
 \end{itemize}
 
 \section*{Hypervisors}
-\label{sec:orgb42cbe7}
+\label{sec:org17a5f62}
 \begin{itemize}
 \item Native or bare-metal
 \item Hosted
 \end{itemize}
 
 \subsection*{Hypervisors}
-\label{sec:org21c2943}
+\label{sec:org6b70c04}
 \begin{center}
 \includegraphics[width=.9\linewidth]{./hyperviseur.png}
 \end{center}
 
 \section*{Full or para-virtualization}
-\label{sec:org054d3ae}
+\label{sec:org580ffeb}
 \begin{itemize}
 \item Full: unmodified OS on top of hypervisor
 \item Para: modified OS calls hypervisor API
 \end{itemize}
 
 \section*{Examples of native hypervisors}
-\label{sec:org9a22dc6}
+\label{sec:orga7382ae}
 \begin{itemize}
 \item XEN
 \item MS Hyper-V
@@ -156,7 +156,7 @@
 \end{itemize}
 
 \section*{Examples of hosted hypervisors}
-\label{sec:orgb1e497f}
+\label{sec:orgb63b0d4}
 \begin{itemize}
 \item QEMU
 \item KVM
@@ -166,7 +166,7 @@
 \end{itemize}
 
 \section*{XEN}
-\label{sec:org1a97271}
+\label{sec:org0bed709}
 \begin{itemize}
 \item founded in 2003 by XenSource, bought in 2007 by Citrix
 \item 2013 under Linux Foundation as Xen Project
@@ -174,13 +174,13 @@
 \end{itemize}
 
 \section*{ZEN}
-\label{sec:org9b5c7e6}
+\label{sec:org8518e4d}
 \begin{center}
 \includegraphics[width=.9\linewidth]{./xen.png}
 \end{center}
 
 \section*{KVM}
-\label{sec:orgd4b4dc4}
+\label{sec:orgda1ae52}
 \begin{itemize}
 \item Modular kernel virtualization
 \item provides user space access to hw virtualization
@@ -189,13 +189,13 @@
 \end{itemize}
 
 \section*{KVM}
-\label{sec:orgc2437dd}
+\label{sec:org7ae14b8}
 \begin{center}
 \includegraphics[width=.9\linewidth]{./kvm.png}
 \end{center}
 
 \section*{QEMU}
-\label{sec:org3db92ce}
+\label{sec:org934ab67}
 \begin{itemize}
 \item hosted hypervisor
 \item provides CPU and/or hardware emulation
@@ -203,39 +203,46 @@
 \end{itemize}
 
 \section*{QEMU}
-\label{sec:org99a0717}
+\label{sec:org28a1f22}
 \begin{itemize}
 \item Other practical QEMU use-cases?
 \end{itemize}
 
 \section*{Type 1 vs type 2 confusion}
-\label{sec:orged94567}
+\label{sec:org6436013}
 \begin{itemize}
 \item Linux with KVM
 \item FreeBSD with bhyve
 \end{itemize}
 
+\section*{VM vs BM hypervisor}
+\label{sec:org42e63b4}
+\begin{itemize}
+\item Hypervisor manages VMs
+\item \ldots{}as well as BMs
+\end{itemize}
+
 \section*{Full vs para-virtualization}
-\label{sec:org1f63315}
+\label{sec:orgb519da7}
 \begin{itemize}
 \item Full: run unmodified OS image
 \item Para: OS explicitly calls hypervisor
 \end{itemize}
 
 \section*{Para-virtualization}
-\label{sec:org15fae2b}
+\label{sec:orgd6c2f57}
 \begin{itemize}
 \item Why?
 \end{itemize}
 
 \subsection*{Why is it called Hypervisor?}
-\label{sec:org8369eb8}
+\label{sec:orge60ff7c}
 \begin{itemize}
 \item What's behind the name?
 \end{itemize}
 
 \section*{Virtualization management}
-\label{sec:org5e1f11d}
+\label{sec:org2238c25}
 \begin{itemize}
 \item Common API to different hypervisors
 \item High-level VM lifecycle abstraction
@@ -243,7 +250,7 @@
 \end{itemize}
 
 \section*{Cloud services}
-\label{sec:orgb6ae2d0}
+\label{sec:org2ab7f4d}
 \begin{itemize}
 \item OS image deployment
 \item Centralized OS configuration
@@ -255,7 +262,7 @@
 \end{itemize}
 
 \section*{Examples of virtualization software}
-\label{sec:org96d9213}
+\label{sec:org004a08c}
 \begin{itemize}
 \item libvirt
 \item oVirt
@@ -263,7 +270,7 @@
 \end{itemize}
 
 \section*{Libvirt}
-\label{sec:orgc8d5c5f}
+\label{sec:orga9fe6a8}
 \begin{itemize}
 \item Common API for hypervisor type abstraction supports
 \item LXC
@@ -273,13 +280,13 @@
 \end{itemize}
 
 \section*{Libvirt}
-\label{sec:orge686a84}
+\label{sec:org6a086e2}
 \begin{center}
 \includegraphics[width=.9\linewidth]{./libvirt.png}
 \end{center}
 
 \section*{oVirt}
-\label{sec:org9e02eca}
+\label{sec:org1bc842c}
 \begin{itemize}
 \item Virtualization management platform
 \item On top of KVM
@@ -290,7 +297,7 @@
 \end{itemize}
 
 \section*{OpenStack}
-\label{sec:org4808092}
+\label{sec:org74387cc}
 \begin{itemize}
 \item Software platform for cloud computing
 \item Started in 2010 by Rackspace and NASA
@@ -298,26 +305,26 @@
 \end{itemize}
 
 \section*{OpenStack}
-\label{sec:orgad024a2}
+\label{sec:orgd232c4e}
 \begin{center}
 \includegraphics[width=.9\linewidth]{./openstack.jpg}
 \end{center}
 
 \section*{OpenStack}
-\label{sec:org6683d3e}
+\label{sec:org785e0a7}
 \begin{center}
 \includegraphics[width=.9\linewidth]{./openstack-detailed.png}
 \end{center}
 
 \section*{Hypervisors vs Containers}
-\label{sec:org8944238}
+\label{sec:org1e90bf7}
 \begin{itemize}
 \item Hypervisors spawn VMs
 \item Containers isolates apps to namespaces
 \end{itemize}
 
 \section*{Example container software}
-\label{sec:org82eef8c}
+\label{sec:orgce742fe}
 \begin{itemize}
 \item Docker
 \item LXC
@@ -326,7 +333,7 @@
 \end{itemize}
 
 \section*{Cloud features}
-\label{sec:org047efe8}
+\label{sec:org48c206a}
 \begin{itemize}
 \item Easy provisioning and configuration
 \item Movable resource: snapshot/backup/live migration
@@ -334,7 +341,7 @@
 \end{itemize}
 
 \subsection*{Cloud features}
-\label{sec:org6784578}
+\label{sec:org77aebf2}
 \begin{itemize}
 \item Isolation from host HW and OS
 \item Virtual vs Physical machine monitoring
@@ -343,7 +350,7 @@
 \end{itemize}
 
 \section*{Recap: the age of virtualization?}
-\label{sec:org53f6e3f}
+\label{sec:org254504f}
 \begin{enumerate}
 \item IBM 700/7000, since 1952
 \item CP-40 research project, early sixties
@@ -353,7 +360,7 @@
 \end{enumerate}
 
 \section*{Recap: virtualization technologies?}
-\label{sec:orgd8e064c}
+\label{sec:org6ea0018}
 \begin{enumerate}
 \item Multi-tasking
 \item Multi-threading processes
@@ -365,7 +372,7 @@
 \end{enumerate}
 
 \section*{Recap: hypervisor types?}
-\label{sec:org2d754bf}
+\label{sec:orgeffca6a}
 \begin{enumerate}
 \item Hybryd
 \item Bare-metal
@@ -375,7 +382,7 @@
 \end{enumerate}
 
 \section*{Recap: what makes up a cloud?}
-\label{sec:org359c1ab}
+\label{sec:org83e4940}
 \begin{enumerate}
 \item One hypervisor
 \item One or more hypervisors
@@ -385,7 +392,7 @@
 \end{enumerate}
 
 \section*{Recap: virtualization vs containers?}
-\label{sec:orga852fc0}
+\label{sec:org11de2fd}
 \begin{enumerate}
 \item We can run OS in a container
 \item We can run different OS'es in containers
@@ -396,7 +403,7 @@
 \end{enumerate}
 
 \section*{Bonus question: matreshka cloud?}
-\label{sec:org356476b}
+\label{sec:org98d2777}
 \begin{itemize}
 \item Can you run a cloud in a cloud?
 \end{itemize}
