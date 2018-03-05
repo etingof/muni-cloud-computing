@@ -1,8 +1,6 @@
 #+TITLE: PA200 - Cloud Computing Concepts
 #+AUTHOR: Petr Blaho
 #+EMAIL: pblaho@redhat.com
-#+LaTeX_CLASS: beamer
-#+BEAMER_FRAME_LEVEL: 2
 #+REVEAL_HLEVEL: 3
 #+REVEAL_THEME: solarized
 #+OPTIONS: num:nil toc:nil
