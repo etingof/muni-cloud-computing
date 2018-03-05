@@ -145,6 +145,11 @@
  - Linux with KVM
  - FreeBSD with bhyve
 
+* VM vs BM hypervisor
+#+ATTR_REVEAL: :frag (appear)
+ - Hypervisor manages VMs
+ - ...as well as BMs
+
 * Full vs para-virtualization
 #+ATTR_REVEAL: :frag (appear)
  - Full: run unmodified OS image
