@@ -3,17 +3,17 @@
 <head>
 <meta charset="utf-8"/>
 <title>PA200 - Cloud Computing Concepts</title>
-<meta name="author" content="(Petr Blaho)"/>
+<meta name="author" content="(Petr Blaho, Ilya Etingof)"/>
 <style type="text/css">
 .underline { text-decoration: underline; }
 </style>
 <style type="text/css">
 /*!
  * reveal.js
- * http://lab.hakim.se/reveal-js
+ * http://revealjs.com
  * MIT licensed
  *
- * Copyright (C) 2016 Hakim El Hattab, http://hakim.se
+ * Copyright (C) 2017 Hakim El Hattab, http://hakim.se
  */
 /*********************************************
  * RESET STYLES
@@ -63,8 +63,7 @@ body {
 .reveal .slides section .fragment {
   opacity: 0;
   visibility: hidden;
-  -webkit-transition: all .2s ease;
-          transition: all .2s ease; }
+  transition: all .2s ease; }
   .reveal .slides section .fragment.visible {
     opacity: 1;
     visibility: inherit; }
@@ -199,100 +198,261 @@ body {
 /*********************************************
  * CONTROLS
  *********************************************/
+@-webkit-keyframes bounce-right {
+  0%, 10%, 25%, 40%, 50% {
+    -webkit-transform: translateX(0);
+            transform: translateX(0); }
+  20% {
+    -webkit-transform: translateX(10px);
+            transform: translateX(10px); }
+  30% {
+    -webkit-transform: translateX(-5px);
+            transform: translateX(-5px); } }
+@keyframes bounce-right {
+  0%, 10%, 25%, 40%, 50% {
+    -webkit-transform: translateX(0);
+            transform: translateX(0); }
+  20% {
+    -webkit-transform: translateX(10px);
+            transform: translateX(10px); }
+  30% {
+    -webkit-transform: translateX(-5px);
+            transform: translateX(-5px); } }
+
+@-webkit-keyframes bounce-down {
+  0%, 10%, 25%, 40%, 50% {
+    -webkit-transform: translateY(0);
+            transform: translateY(0); }
+  20% {
+    -webkit-transform: translateY(10px);
+            transform: translateY(10px); }
+  30% {
+    -webkit-transform: translateY(-5px);
+            transform: translateY(-5px); } }
+
+@keyframes bounce-down {
+  0%, 10%, 25%, 40%, 50% {
+    -webkit-transform: translateY(0);
+            transform: translateY(0); }
+  20% {
+    -webkit-transform: translateY(10px);
+            transform: translateY(10px); }
+  30% {
+    -webkit-transform: translateY(-5px);
+            transform: translateY(-5px); } }
+
 .reveal .controls {
   display: none;
-  position: fixed;
-  width: 110px;
-  height: 110px;
-  z-index: 30;
-  right: 10px;
-  bottom: 10px;
-  -webkit-user-select: none; }
-
-.reveal .controls button {
-  padding: 0;
   position: absolute;
-  opacity: 0.05;
-  width: 0;
-  height: 0;
-  background-color: transparent;
-  border: 12px solid transparent;
-  -webkit-transform: scale(0.9999);
-          transform: scale(0.9999);
-  -webkit-transition: all 0.2s ease;
-          transition: all 0.2s ease;
-  -webkit-appearance: none;
-  -webkit-tap-highlight-color: transparent; }
+  top: auto;
+  bottom: 12px;
+  right: 12px;
+  left: auto;
+  z-index: 1;
+  color: #000;
+  pointer-events: none;
+  font-size: 10px; }
+  .reveal .controls button {
+    position: absolute;
+    padding: 0;
+    background-color: transparent;
+    border: 0;
+    outline: 0;
+    cursor: pointer;
+    color: currentColor;
+    -webkit-transform: scale(0.9999);
+            transform: scale(0.9999);
+    transition: color 0.2s ease, opacity 0.2s ease, -webkit-transform 0.2s ease;
+    transition: color 0.2s ease, opacity 0.2s ease, transform 0.2s ease;
+    z-index: 2;
+    pointer-events: auto;
+    font-size: inherit;
+    visibility: hidden;
+    opacity: 0;
+    -webkit-appearance: none;
+    -webkit-tap-highlight-color: transparent; }
+  .reveal .controls .controls-arrow:before,
+  .reveal .controls .controls-arrow:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 2.6em;
+    height: 0.5em;
+    border-radius: 0.25em;
+    background-color: currentColor;
+    transition: all 0.15s ease, background-color 0.8s ease;
+    -webkit-transform-origin: 0.2em 50%;
+            transform-origin: 0.2em 50%;
+    will-change: transform; }
+  .reveal .controls .controls-arrow {
+    position: relative;
+    width: 3.6em;
+    height: 3.6em; }
+    .reveal .controls .controls-arrow:before {
+      -webkit-transform: translateX(0.5em) translateY(1.55em) rotate(45deg);
+              transform: translateX(0.5em) translateY(1.55em) rotate(45deg); }
+    .reveal .controls .controls-arrow:after {
+      -webkit-transform: translateX(0.5em) translateY(1.55em) rotate(-45deg);
+              transform: translateX(0.5em) translateY(1.55em) rotate(-45deg); }
+    .reveal .controls .controls-arrow:hover:before {
+      -webkit-transform: translateX(0.5em) translateY(1.55em) rotate(40deg);
+              transform: translateX(0.5em) translateY(1.55em) rotate(40deg); }
+    .reveal .controls .controls-arrow:hover:after {
+      -webkit-transform: translateX(0.5em) translateY(1.55em) rotate(-40deg);
+              transform: translateX(0.5em) translateY(1.55em) rotate(-40deg); }
+    .reveal .controls .controls-arrow:active:before {
+      -webkit-transform: translateX(0.5em) translateY(1.55em) rotate(36deg);
+              transform: translateX(0.5em) translateY(1.55em) rotate(36deg); }
+    .reveal .controls .controls-arrow:active:after {
+      -webkit-transform: translateX(0.5em) translateY(1.55em) rotate(-36deg);
+              transform: translateX(0.5em) translateY(1.55em) rotate(-36deg); }
+  .reveal .controls .navigate-left {
+    right: 6.4em;
+    bottom: 3.2em;
+    -webkit-transform: translateX(-10px);
+            transform: translateX(-10px); }
+  .reveal .controls .navigate-right {
+    right: 0;
+    bottom: 3.2em;
+    -webkit-transform: translateX(10px);
+            transform: translateX(10px); }
+    .reveal .controls .navigate-right .controls-arrow {
+      -webkit-transform: rotate(180deg);
+              transform: rotate(180deg); }
+    .reveal .controls .navigate-right.highlight {
+      -webkit-animation: bounce-right 2s 50 both ease-out;
+              animation: bounce-right 2s 50 both ease-out; }
+  .reveal .controls .navigate-up {
+    right: 3.2em;
+    bottom: 6.4em;
+    -webkit-transform: translateY(-10px);
+            transform: translateY(-10px); }
+    .reveal .controls .navigate-up .controls-arrow {
+      -webkit-transform: rotate(90deg);
+              transform: rotate(90deg); }
+  .reveal .controls .navigate-down {
+    right: 3.2em;
+    bottom: 0;
+    -webkit-transform: translateY(10px);
+            transform: translateY(10px); }
+    .reveal .controls .navigate-down .controls-arrow {
+      -webkit-transform: rotate(-90deg);
+              transform: rotate(-90deg); }
+    .reveal .controls .navigate-down.highlight {
+      -webkit-animation: bounce-down 2s 50 both ease-out;
+              animation: bounce-down 2s 50 both ease-out; }
+  .reveal .controls[data-controls-back-arrows="faded"] .navigate-left.enabled,
+  .reveal .controls[data-controls-back-arrows="faded"] .navigate-up.enabled {
+    opacity: 0.3; }
+    .reveal .controls[data-controls-back-arrows="faded"] .navigate-left.enabled:hover,
+    .reveal .controls[data-controls-back-arrows="faded"] .navigate-up.enabled:hover {
+      opacity: 1; }
+  .reveal .controls[data-controls-back-arrows="hidden"] .navigate-left.enabled,
+  .reveal .controls[data-controls-back-arrows="hidden"] .navigate-up.enabled {
+    opacity: 0;
+    visibility: hidden; }
+  .reveal .controls .enabled {
+    visibility: visible;
+    opacity: 0.9;
+    cursor: pointer;
+    -webkit-transform: none;
+            transform: none; }
+  .reveal .controls .enabled.fragmented {
+    opacity: 0.5; }
+  .reveal .controls .enabled:hover,
+  .reveal .controls .enabled.fragmented:hover {
+    opacity: 1; }
 
-.reveal .controls .enabled {
-  opacity: 0.7;
-  cursor: pointer; }
+.reveal:not(.has-vertical-slides) .controls .navigate-left {
+  bottom: 1.4em;
+  right: 5.5em; }
 
-.reveal .controls .enabled:active {
-  margin-top: 1px; }
+.reveal:not(.has-vertical-slides) .controls .navigate-right {
+  bottom: 1.4em;
+  right: 0.5em; }
 
-.reveal .controls .navigate-left {
-  top: 42px;
-  border-right-width: 22px;
-  border-right-color: #000; }
+.reveal:not(.has-horizontal-slides) .controls .navigate-up {
+  right: 1.4em;
+  bottom: 5em; }
 
-.reveal .controls .navigate-left.fragmented {
-  opacity: 0.3; }
+.reveal:not(.has-horizontal-slides) .controls .navigate-down {
+  right: 1.4em;
+  bottom: 0.5em; }
 
-.reveal .controls .navigate-right {
-  left: 74px;
-  top: 42px;
-  border-left-width: 22px;
-  border-left-color: #000; }
+.reveal.has-dark-background .controls {
+  color: #fff; }
 
-.reveal .controls .navigate-right.fragmented {
-  opacity: 0.3; }
+.reveal.has-light-background .controls {
+  color: #000; }
 
-.reveal .controls .navigate-up {
-  left: 42px;
-  border-bottom-width: 22px;
-  border-bottom-color: #000; }
+.reveal.no-hover .controls .controls-arrow:hover:before,
+.reveal.no-hover .controls .controls-arrow:active:before {
+  -webkit-transform: translateX(0.5em) translateY(1.55em) rotate(45deg);
+          transform: translateX(0.5em) translateY(1.55em) rotate(45deg); }
 
-.reveal .controls .navigate-up.fragmented {
-  opacity: 0.3; }
+.reveal.no-hover .controls .controls-arrow:hover:after,
+.reveal.no-hover .controls .controls-arrow:active:after {
+  -webkit-transform: translateX(0.5em) translateY(1.55em) rotate(-45deg);
+          transform: translateX(0.5em) translateY(1.55em) rotate(-45deg); }
 
-.reveal .controls .navigate-down {
-  left: 42px;
-  top: 74px;
-  border-top-width: 22px;
-  border-top-color: #000; }
-
-.reveal .controls .navigate-down.fragmented {
-  opacity: 0.3; }
+@media screen and (min-width: 500px) {
+  .reveal .controls[data-controls-layout="edges"] {
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0; }
+  .reveal .controls[data-controls-layout="edges"] .navigate-left,
+  .reveal .controls[data-controls-layout="edges"] .navigate-right,
+  .reveal .controls[data-controls-layout="edges"] .navigate-up,
+  .reveal .controls[data-controls-layout="edges"] .navigate-down {
+    bottom: auto;
+    right: auto; }
+  .reveal .controls[data-controls-layout="edges"] .navigate-left {
+    top: 50%;
+    left: 8px;
+    margin-top: -1.8em; }
+  .reveal .controls[data-controls-layout="edges"] .navigate-right {
+    top: 50%;
+    right: 8px;
+    margin-top: -1.8em; }
+  .reveal .controls[data-controls-layout="edges"] .navigate-up {
+    top: 8px;
+    left: 50%;
+    margin-left: -1.8em; }
+  .reveal .controls[data-controls-layout="edges"] .navigate-down {
+    bottom: 8px;
+    left: 50%;
+    margin-left: -1.8em; } }
 
 /*********************************************
  * PROGRESS BAR
  *********************************************/
 .reveal .progress {
-  position: fixed;
+  position: absolute;
   display: none;
   height: 3px;
   width: 100%;
   bottom: 0;
   left: 0;
   z-index: 10;
-  background-color: rgba(0, 0, 0, 0.2); }
+  background-color: rgba(0, 0, 0, 0.2);
+  color: #fff; }
 
 .reveal .progress:after {
   content: '';
   display: block;
   position: absolute;
-  height: 20px;
+  height: 10px;
   width: 100%;
-  top: -20px; }
+  top: -10px; }
 
 .reveal .progress span {
   display: block;
   height: 100%;
   width: 0px;
-  background-color: #000;
-  -webkit-transition: width 800ms cubic-bezier(0.26, 0.86, 0.44, 0.985);
-          transition: width 800ms cubic-bezier(0.26, 0.86, 0.44, 0.985); }
+  background-color: currentColor;
+  transition: width 800ms cubic-bezier(0.26, 0.86, 0.44, 0.985); }
 
 /*********************************************
  * SLIDE NUMBER
@@ -324,6 +484,10 @@ body {
   -ms-touch-action: none;
       touch-action: none; }
 
+@media only screen and (orientation: landscape) {
+  .reveal.ua-iphone {
+    position: fixed; } }
+
 .reveal .slides {
   position: absolute;
   width: 100%;
@@ -333,6 +497,7 @@ body {
   bottom: 0;
   left: 0;
   margin: auto;
+  pointer-events: none;
   overflow: visible;
   z-index: 1;
   text-align: center;
@@ -350,29 +515,26 @@ body {
   position: absolute;
   width: 100%;
   padding: 20px 0px;
+  pointer-events: auto;
   z-index: 10;
   -webkit-transform-style: flat;
           transform-style: flat;
-  -webkit-transition: -webkit-transform-origin 800ms cubic-bezier(0.26, 0.86, 0.44, 0.985), -webkit-transform 800ms cubic-bezier(0.26, 0.86, 0.44, 0.985), visibility 800ms cubic-bezier(0.26, 0.86, 0.44, 0.985), opacity 800ms cubic-bezier(0.26, 0.86, 0.44, 0.985);
-          transition: transform-origin 800ms cubic-bezier(0.26, 0.86, 0.44, 0.985), transform 800ms cubic-bezier(0.26, 0.86, 0.44, 0.985), visibility 800ms cubic-bezier(0.26, 0.86, 0.44, 0.985), opacity 800ms cubic-bezier(0.26, 0.86, 0.44, 0.985); }
+  transition: -webkit-transform-origin 800ms cubic-bezier(0.26, 0.86, 0.44, 0.985), -webkit-transform 800ms cubic-bezier(0.26, 0.86, 0.44, 0.985), visibility 800ms cubic-bezier(0.26, 0.86, 0.44, 0.985), opacity 800ms cubic-bezier(0.26, 0.86, 0.44, 0.985);
+  transition: transform-origin 800ms cubic-bezier(0.26, 0.86, 0.44, 0.985), transform 800ms cubic-bezier(0.26, 0.86, 0.44, 0.985), visibility 800ms cubic-bezier(0.26, 0.86, 0.44, 0.985), opacity 800ms cubic-bezier(0.26, 0.86, 0.44, 0.985); }
 
 /* Global transition speed settings */
 .reveal[data-transition-speed="fast"] .slides section {
-  -webkit-transition-duration: 400ms;
-          transition-duration: 400ms; }
+  transition-duration: 400ms; }
 
 .reveal[data-transition-speed="slow"] .slides section {
-  -webkit-transition-duration: 1200ms;
-          transition-duration: 1200ms; }
+  transition-duration: 1200ms; }
 
 /* Slide-specific transition speed overrides */
 .reveal .slides section[data-transition-speed="fast"] {
-  -webkit-transition-duration: 400ms;
-          transition-duration: 400ms; }
+  transition-duration: 400ms; }
 
 .reveal .slides section[data-transition-speed="slow"] {
-  -webkit-transition-duration: 1200ms;
-          transition-duration: 1200ms; }
+  transition-duration: 1200ms; }
 
 .reveal .slides > section.stack {
   padding-top: 0;
@@ -383,6 +545,12 @@ body {
   display: block;
   z-index: 11;
   opacity: 1; }
+
+.reveal .slides > section:empty,
+.reveal .slides > section > section:empty,
+.reveal .slides > section[data-background-interactive],
+.reveal .slides > section > section[data-background-interactive] {
+  pointer-events: none; }
 
 .reveal.center,
 .reveal.center .slides,
@@ -568,8 +736,7 @@ body {
  *********************************************/
 .reveal .slides section[data-transition=zoom],
 .reveal.zoom .slides section:not([data-transition]) {
-  -webkit-transition-timing-function: ease;
-          transition-timing-function: ease; }
+  transition-timing-function: ease; }
 
 .reveal .slides > section[data-transition=zoom].past,
 .reveal .slides > section[data-transition~=zoom-out].past,
@@ -599,6 +766,10 @@ body {
 
 /*********************************************
  * CUBE TRANSITION
+ *
+ * WARNING:
+ * this is deprecated and will be removed in a
+ * future version.
  *********************************************/
 .reveal.cube .slides {
   -webkit-perspective: 1300px;
@@ -674,6 +845,10 @@ body {
 
 /*********************************************
  * PAGE TRANSITION
+ *
+ * WARNING:
+ * this is deprecated and will be removed in a
+ * future version.
  *********************************************/
 .reveal.page .slides {
   -webkit-perspective-origin: 0% 50%;
@@ -753,13 +928,11 @@ body {
 .reveal.fade .slides > section > section:not([data-transition]) {
   -webkit-transform: none;
           transform: none;
-  -webkit-transition: opacity 0.5s;
-          transition: opacity 0.5s; }
+  transition: opacity 0.5s; }
 
 .reveal.fade.overview .slides section,
 .reveal.fade.overview .slides > section > section {
-  -webkit-transition: none;
-          transition: none; }
+  transition: none; }
 
 /*********************************************
  * NO TRANSITION
@@ -768,8 +941,7 @@ body {
 .reveal.none .slides section:not([data-transition]) {
   -webkit-transform: none;
           transform: none;
-  -webkit-transition: none;
-          transition: none; }
+  transition: none; }
 
 /*********************************************
  * PAUSED MODE
@@ -784,8 +956,7 @@ body {
   visibility: hidden;
   opacity: 0;
   z-index: 100;
-  -webkit-transition: all 1s ease;
-          transition: all 1s ease; }
+  transition: all 1s ease; }
 
 .reveal.paused .pause-overlay {
   visibility: visible;
@@ -827,8 +998,7 @@ body {
 
 .reveal .no-transition,
 .reveal .no-transition * {
-  -webkit-transition: none !important;
-          transition: none !important; }
+  transition: none !important; }
 
 /*********************************************
  * PER-SLIDE BACKGROUNDS
@@ -849,19 +1019,20 @@ body {
   height: 100%;
   opacity: 0;
   visibility: hidden;
+  overflow: hidden;
   background-color: transparent;
   background-position: 50% 50%;
   background-repeat: no-repeat;
   background-size: cover;
-  -webkit-transition: all 800ms cubic-bezier(0.26, 0.86, 0.44, 0.985);
-          transition: all 800ms cubic-bezier(0.26, 0.86, 0.44, 0.985); }
+  transition: all 800ms cubic-bezier(0.26, 0.86, 0.44, 0.985); }
 
 .reveal .slide-background.stack {
   display: block; }
 
 .reveal .slide-background.present {
   opacity: 1;
-  visibility: visible; }
+  visibility: visible;
+  z-index: 2; }
 
 .print-pdf .reveal .slide-background {
   opacity: 1 !important;
@@ -875,13 +1046,18 @@ body {
   max-width: none;
   max-height: none;
   top: 0;
-  left: 0; }
+  left: 0;
+  -o-object-fit: cover;
+     object-fit: cover; }
+
+.reveal .slide-background[data-background-size="contain"] video {
+  -o-object-fit: contain;
+     object-fit: contain; }
 
 /* Immediate transition style */
 .reveal[data-background-transition=none] > .backgrounds .slide-background,
 .reveal > .backgrounds .slide-background[data-background-transition=none] {
-  -webkit-transition: none;
-          transition: none; }
+  transition: none; }
 
 /* Slide */
 .reveal[data-background-transition=slide] > .backgrounds .slide-background,
@@ -963,8 +1139,7 @@ body {
 /* Zoom */
 .reveal[data-background-transition=zoom] > .backgrounds .slide-background,
 .reveal > .backgrounds .slide-background[data-background-transition=zoom] {
-  -webkit-transition-timing-function: ease;
-          transition-timing-function: ease; }
+  transition-timing-function: ease; }
 
 .reveal[data-background-transition=zoom] > .backgrounds .slide-background.past,
 .reveal > .backgrounds .slide-background.past[data-background-transition=zoom] {
@@ -996,12 +1171,10 @@ body {
 
 /* Global transition speed settings */
 .reveal[data-transition-speed="fast"] > .backgrounds .slide-background {
-  -webkit-transition-duration: 400ms;
-          transition-duration: 400ms; }
+  transition-duration: 400ms; }
 
 .reveal[data-transition-speed="slow"] > .backgrounds .slide-background {
-  -webkit-transition-duration: 1200ms;
-          transition-duration: 1200ms; }
+  transition-duration: 1200ms; }
 
 /*********************************************
  * OVERVIEW
@@ -1027,8 +1200,7 @@ body {
     outline-offset: 10px; }
   .reveal.overview .slides section .fragment {
     opacity: 1;
-    -webkit-transition: none;
-            transition: none; }
+    transition: none; }
   .reveal.overview .slides section:after,
   .reveal.overview .slides section:before {
     display: none !important; }
@@ -1047,20 +1219,16 @@ body {
     visibility: visible;
     outline: 10px solid rgba(150, 150, 150, 0.1);
     outline-offset: 10px; }
+  .reveal.overview .backgrounds .slide-background.stack {
+    overflow: visible; }
 
 .reveal.overview .slides section,
 .reveal.overview-deactivating .slides section {
-  -webkit-transition: none;
-          transition: none; }
+  transition: none; }
 
 .reveal.overview .backgrounds .slide-background,
 .reveal.overview-deactivating .backgrounds .slide-background {
-  -webkit-transition: none;
-          transition: none; }
-
-.reveal.overview-animated .slides {
-  -webkit-transition: -webkit-transform 0.4s ease;
-          transition: transform 0.4s ease; }
+  transition: none; }
 
 /*********************************************
  * RTL SUPPORT
@@ -1090,17 +1258,14 @@ body {
  * PARALLAX BACKGROUND
  *********************************************/
 .reveal.has-parallax-background .backgrounds {
-  -webkit-transition: all 0.8s ease;
-          transition: all 0.8s ease; }
+  transition: all 0.8s ease; }
 
 /* Global transition speed settings */
 .reveal.has-parallax-background[data-transition-speed="fast"] .backgrounds {
-  -webkit-transition-duration: 400ms;
-          transition-duration: 400ms; }
+  transition-duration: 400ms; }
 
 .reveal.has-parallax-background[data-transition-speed="slow"] .backgrounds {
-  -webkit-transition-duration: 1200ms;
-          transition-duration: 1200ms; }
+  transition-duration: 1200ms; }
 
 /*********************************************
  * LINK PREVIEW OVERLAY
@@ -1115,8 +1280,7 @@ body {
   background: rgba(0, 0, 0, 0.9);
   opacity: 0;
   visibility: hidden;
-  -webkit-transition: all 0.3s ease;
-          transition: all 0.3s ease; }
+  transition: all 0.3s ease; }
 
 .reveal .overlay.visible {
   opacity: 1;
@@ -1134,8 +1298,7 @@ body {
   background-image: url(data:image/gif;base64,R0lGODlhIAAgAPMAAJmZmf%2F%2F%2F6%2Bvr8nJybW1tcDAwOjo6Nvb26ioqKOjo7Ozs%2FLy8vz8%2FAAAAAAAAAAAACH%2FC05FVFNDQVBFMi4wAwEAAAAh%2FhpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh%2BQQJCgAAACwAAAAAIAAgAAAE5xDISWlhperN52JLhSSdRgwVo1ICQZRUsiwHpTJT4iowNS8vyW2icCF6k8HMMBkCEDskxTBDAZwuAkkqIfxIQyhBQBFvAQSDITM5VDW6XNE4KagNh6Bgwe60smQUB3d4Rz1ZBApnFASDd0hihh12BkE9kjAJVlycXIg7CQIFA6SlnJ87paqbSKiKoqusnbMdmDC2tXQlkUhziYtyWTxIfy6BE8WJt5YJvpJivxNaGmLHT0VnOgSYf0dZXS7APdpB309RnHOG5gDqXGLDaC457D1zZ%2FV%2FnmOM82XiHRLYKhKP1oZmADdEAAAh%2BQQJCgAAACwAAAAAIAAgAAAE6hDISWlZpOrNp1lGNRSdRpDUolIGw5RUYhhHukqFu8DsrEyqnWThGvAmhVlteBvojpTDDBUEIFwMFBRAmBkSgOrBFZogCASwBDEY%2FCZSg7GSE0gSCjQBMVG023xWBhklAnoEdhQEfyNqMIcKjhRsjEdnezB%2BA4k8gTwJhFuiW4dokXiloUepBAp5qaKpp6%2BHo7aWW54wl7obvEe0kRuoplCGepwSx2jJvqHEmGt6whJpGpfJCHmOoNHKaHx61WiSR92E4lbFoq%2BB6QDtuetcaBPnW6%2BO7wDHpIiK9SaVK5GgV543tzjgGcghAgAh%2BQQJCgAAACwAAAAAIAAgAAAE7hDISSkxpOrN5zFHNWRdhSiVoVLHspRUMoyUakyEe8PTPCATW9A14E0UvuAKMNAZKYUZCiBMuBakSQKG8G2FzUWox2AUtAQFcBKlVQoLgQReZhQlCIJesQXI5B0CBnUMOxMCenoCfTCEWBsJColTMANldx15BGs8B5wlCZ9Po6OJkwmRpnqkqnuSrayqfKmqpLajoiW5HJq7FL1Gr2mMMcKUMIiJgIemy7xZtJsTmsM4xHiKv5KMCXqfyUCJEonXPN2rAOIAmsfB3uPoAK%2B%2BG%2Bw48edZPK%2BM6hLJpQg484enXIdQFSS1u6UhksENEQAAIfkECQoAAAAsAAAAACAAIAAABOcQyEmpGKLqzWcZRVUQnZYg1aBSh2GUVEIQ2aQOE%2BG%2BcD4ntpWkZQj1JIiZIogDFFyHI0UxQwFugMSOFIPJftfVAEoZLBbcLEFhlQiqGp1Vd140AUklUN3eCA51C1EWMzMCezCBBmkxVIVHBWd3HHl9JQOIJSdSnJ0TDKChCwUJjoWMPaGqDKannasMo6WnM562R5YluZRwur0wpgqZE7NKUm%2BFNRPIhjBJxKZteWuIBMN4zRMIVIhffcgojwCF117i4nlLnY5ztRLsnOk%2BaV%2BoJY7V7m76PdkS4trKcdg0Zc0tTcKkRAAAIfkECQoAAAAsAAAAACAAIAAABO4QyEkpKqjqzScpRaVkXZWQEximw1BSCUEIlDohrft6cpKCk5xid5MNJTaAIkekKGQkWyKHkvhKsR7ARmitkAYDYRIbUQRQjWBwJRzChi9CRlBcY1UN4g0%2FVNB0AlcvcAYHRyZPdEQFYV8ccwR5HWxEJ02YmRMLnJ1xCYp0Y5idpQuhopmmC2KgojKasUQDk5BNAwwMOh2RtRq5uQuPZKGIJQIGwAwGf6I0JXMpC8C7kXWDBINFMxS4DKMAWVWAGYsAdNqW5uaRxkSKJOZKaU3tPOBZ4DuK2LATgJhkPJMgTwKCdFjyPHEnKxFCDhEAACH5BAkKAAAALAAAAAAgACAAAATzEMhJaVKp6s2nIkolIJ2WkBShpkVRWqqQrhLSEu9MZJKK9y1ZrqYK9WiClmvoUaF8gIQSNeF1Er4MNFn4SRSDARWroAIETg1iVwuHjYB1kYc1mwruwXKC9gmsJXliGxc%2BXiUCby9ydh1sOSdMkpMTBpaXBzsfhoc5l58Gm5yToAaZhaOUqjkDgCWNHAULCwOLaTmzswadEqggQwgHuQsHIoZCHQMMQgQGubVEcxOPFAcMDAYUA85eWARmfSRQCdcMe0zeP1AAygwLlJtPNAAL19DARdPzBOWSm1brJBi45soRAWQAAkrQIykShQ9wVhHCwCQCACH5BAkKAAAALAAAAAAgACAAAATrEMhJaVKp6s2nIkqFZF2VIBWhUsJaTokqUCoBq%2BE71SRQeyqUToLA7VxF0JDyIQh%2FMVVPMt1ECZlfcjZJ9mIKoaTl1MRIl5o4CUKXOwmyrCInCKqcWtvadL2SYhyASyNDJ0uIiRMDjI0Fd30%2FiI2UA5GSS5UDj2l6NoqgOgN4gksEBgYFf0FDqKgHnyZ9OX8HrgYHdHpcHQULXAS2qKpENRg7eAMLC7kTBaixUYFkKAzWAAnLC7FLVxLWDBLKCwaKTULgEwbLA4hJtOkSBNqITT3xEgfLpBtzE%2FjiuL04RGEBgwWhShRgQExHBAAh%2BQQJCgAAACwAAAAAIAAgAAAE7xDISWlSqerNpyJKhWRdlSAVoVLCWk6JKlAqAavhO9UkUHsqlE6CwO1cRdCQ8iEIfzFVTzLdRAmZX3I2SfZiCqGk5dTESJeaOAlClzsJsqwiJwiqnFrb2nS9kmIcgEsjQydLiIlHehhpejaIjzh9eomSjZR%2BipslWIRLAgMDOR2DOqKogTB9pCUJBagDBXR6XB0EBkIIsaRsGGMMAxoDBgYHTKJiUYEGDAzHC9EACcUGkIgFzgwZ0QsSBcXHiQvOwgDdEwfFs0sDzt4S6BK4xYjkDOzn0unFeBzOBijIm1Dgmg5YFQwsCMjp1oJ8LyIAACH5BAkKAAAALAAAAAAgACAAAATwEMhJaVKp6s2nIkqFZF2VIBWhUsJaTokqUCoBq%2BE71SRQeyqUToLA7VxF0JDyIQh%2FMVVPMt1ECZlfcjZJ9mIKoaTl1MRIl5o4CUKXOwmyrCInCKqcWtvadL2SYhyASyNDJ0uIiUd6GGl6NoiPOH16iZKNlH6KmyWFOggHhEEvAwwMA0N9GBsEC6amhnVcEwavDAazGwIDaH1ipaYLBUTCGgQDA8NdHz0FpqgTBwsLqAbWAAnIA4FWKdMLGdYGEgraigbT0OITBcg5QwPT4xLrROZL6AuQAPUS7bxLpoWidY0JtxLHKhwwMJBTHgPKdEQAACH5BAkKAAAALAAAAAAgACAAAATrEMhJaVKp6s2nIkqFZF2VIBWhUsJaTokqUCoBq%2BE71SRQeyqUToLA7VxF0JDyIQh%2FMVVPMt1ECZlfcjZJ9mIKoaTl1MRIl5o4CUKXOwmyrCInCKqcWtvadL2SYhyASyNDJ0uIiUd6GAULDJCRiXo1CpGXDJOUjY%2BYip9DhToJA4RBLwMLCwVDfRgbBAaqqoZ1XBMHswsHtxtFaH1iqaoGNgAIxRpbFAgfPQSqpbgGBqUD1wBXeCYp1AYZ19JJOYgH1KwA4UBvQwXUBxPqVD9L3sbp2BNk2xvvFPJd%2BMFCN6HAAIKgNggY0KtEBAAh%2BQQJCgAAACwAAAAAIAAgAAAE6BDISWlSqerNpyJKhWRdlSAVoVLCWk6JKlAqAavhO9UkUHsqlE6CwO1cRdCQ8iEIfzFVTzLdRAmZX3I2SfYIDMaAFdTESJeaEDAIMxYFqrOUaNW4E4ObYcCXaiBVEgULe0NJaxxtYksjh2NLkZISgDgJhHthkpU4mW6blRiYmZOlh4JWkDqILwUGBnE6TYEbCgevr0N1gH4At7gHiRpFaLNrrq8HNgAJA70AWxQIH1%2BvsYMDAzZQPC9VCNkDWUhGkuE5PxJNwiUK4UfLzOlD4WvzAHaoG9nxPi5d%2BjYUqfAhhykOFwJWiAAAIfkECQoAAAAsAAAAACAAIAAABPAQyElpUqnqzaciSoVkXVUMFaFSwlpOCcMYlErAavhOMnNLNo8KsZsMZItJEIDIFSkLGQoQTNhIsFehRww2CQLKF0tYGKYSg%2BygsZIuNqJksKgbfgIGepNo2cIUB3V1B3IvNiBYNQaDSTtfhhx0CwVPI0UJe0%2Bbm4g5VgcGoqOcnjmjqDSdnhgEoamcsZuXO1aWQy8KAwOAuTYYGwi7w5h%2BKr0SJ8MFihpNbx%2B4Erq7BYBuzsdiH1jCAzoSfl0rVirNbRXlBBlLX%2BBP0XJLAPGzTkAuAOqb0WT5AH7OcdCm5B8TgRwSRKIHQtaLCwg1RAAAOwAAAAAAAAAAAA%3D%3D);
   visibility: visible;
   opacity: 0.6;
-  -webkit-transition: all 0.3s ease;
-          transition: all 0.3s ease; }
+  transition: all 0.3s ease; }
 
 .reveal .overlay header {
   position: absolute;
@@ -1176,7 +1339,6 @@ body {
 .reveal .overlay .viewport {
   position: absolute;
   display: -webkit-box;
-  display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
   top: 40px;
@@ -1192,8 +1354,7 @@ body {
   border: 0;
   opacity: 0;
   visibility: hidden;
-  -webkit-transition: all 0.3s ease;
-          transition: all 0.3s ease; }
+  transition: all 0.3s ease; }
 
 .reveal .overlay.overlay-preview.loaded .viewport iframe {
   opacity: 1;
@@ -1210,8 +1371,7 @@ body {
 
 .reveal .overlay.overlay-preview .x-frame-error {
   opacity: 0;
-  -webkit-transition: opacity 0.3s ease 0.3s;
-          transition: opacity 0.3s ease 0.3s; }
+  transition: opacity 0.3s ease 0.3s; }
 
 .reveal .overlay.overlay-preview.loaded .x-frame-error {
   opacity: 1; }
@@ -1256,13 +1416,13 @@ body {
  * PLAYBACK COMPONENT
  *********************************************/
 .reveal .playback {
-  position: fixed;
+  position: absolute;
   left: 15px;
   bottom: 20px;
   z-index: 30;
   cursor: pointer;
-  -webkit-transition: all 400ms ease;
-          transition: all 400ms ease; }
+  transition: all 400ms ease;
+  -webkit-tap-highlight-color: transparent; }
 
 .reveal.overview .playback {
   opacity: 0;
@@ -1290,8 +1450,7 @@ body {
   position: relative;
   padding: 0 2px;
   pointer-events: none;
-  -webkit-transition: all 400ms ease;
-          transition: all 400ms ease;
+  transition: all 400ms ease;
   -webkit-transform-origin: 50% 0%;
           transform-origin: 50% 0%;
   -webkit-transform-style: preserve-3d;
@@ -1327,33 +1486,64 @@ body {
 .reveal .speaker-notes {
   display: none;
   position: absolute;
-  width: 70%;
-  max-height: 15%;
-  left: 15%;
-  bottom: 26px;
-  padding: 10px;
+  width: 25vw;
+  height: 100%;
+  top: 0;
+  left: 100%;
+  padding: 14px 18px 14px 18px;
   z-index: 1;
   font-size: 18px;
   line-height: 1.4;
-  color: #fff;
-  background-color: rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  color: #222;
+  background-color: #f5f5f5;
   overflow: auto;
   box-sizing: border-box;
   text-align: left;
   font-family: Helvetica, sans-serif;
   -webkit-overflow-scrolling: touch; }
+  .reveal .speaker-notes .notes-placeholder {
+    color: #ccc;
+    font-style: italic; }
+  .reveal .speaker-notes:focus {
+    outline: none; }
+  .reveal .speaker-notes:before {
+    content: 'Speaker notes';
+    display: block;
+    margin-bottom: 10px;
+    opacity: 0.5; }
 
-.reveal .speaker-notes.visible:not(:empty) {
+.reveal.show-notes {
+  max-width: 75vw;
+  overflow: visible; }
+
+.reveal.show-notes .speaker-notes {
   display: block; }
 
-@media screen and (max-width: 1024px) {
+@media screen and (min-width: 1600px) {
   .reveal .speaker-notes {
-    font-size: 14px; } }
+    font-size: 20px; } }
+
+@media screen and (max-width: 1024px) {
+  .reveal.show-notes {
+    border-left: 0;
+    max-width: none;
+    max-height: 70%;
+    overflow: visible; }
+  .reveal.show-notes .speaker-notes {
+    top: 100%;
+    left: 0;
+    width: 100%;
+    height: 42.8571428571%; } }
 
 @media screen and (max-width: 600px) {
+  .reveal.show-notes {
+    max-height: 60%; }
+  .reveal.show-notes .speaker-notes {
+    top: 100%;
+    height: 66.6666666667%; }
   .reveal .speaker-notes {
-    width: 90%;
-    left: 5%; } }
+    font-size: 14px; } }
 
 /*********************************************
  * ZOOM PLUGIN
@@ -1505,10 +1695,6 @@ body {
 .reveal dd {
   margin-left: 40px; }
 
-.reveal q,
-.reveal blockquote {
-  quotes: none; }
-
 .reveal blockquote {
   display: block;
   position: relative;
@@ -1539,7 +1725,8 @@ body {
   box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.3); }
 
 .reveal code {
-  font-family: monospace; }
+  font-family: monospace;
+  text-transform: none; }
 
 .reveal pre code {
   display: block;
@@ -1634,101 +1821,199 @@ body {
 /*********************************************
  * NAVIGATION CONTROLS
  *********************************************/
-.reveal .controls .navigate-left,
-.reveal .controls .navigate-left.enabled {
-  border-right-color: #268bd2; }
-
-.reveal .controls .navigate-right,
-.reveal .controls .navigate-right.enabled {
-  border-left-color: #268bd2; }
-
-.reveal .controls .navigate-up,
-.reveal .controls .navigate-up.enabled {
-  border-bottom-color: #268bd2; }
-
-.reveal .controls .navigate-down,
-.reveal .controls .navigate-down.enabled {
-  border-top-color: #268bd2; }
-
-.reveal .controls .navigate-left.enabled:hover {
-  border-right-color: #78b9e6; }
-
-.reveal .controls .navigate-right.enabled:hover {
-  border-left-color: #78b9e6; }
-
-.reveal .controls .navigate-up.enabled:hover {
-  border-bottom-color: #78b9e6; }
-
-.reveal .controls .navigate-down.enabled:hover {
-  border-top-color: #78b9e6; }
+.reveal .controls {
+  color: #268bd2; }
 
 /*********************************************
  * PROGRESS BAR
  *********************************************/
 .reveal .progress {
-  background: rgba(0, 0, 0, 0.2); }
+  background: rgba(0, 0, 0, 0.2);
+  color: #268bd2; }
 
 .reveal .progress span {
-  background: #268bd2;
   -webkit-transition: width 800ms cubic-bezier(0.26, 0.86, 0.44, 0.985);
   -moz-transition: width 800ms cubic-bezier(0.26, 0.86, 0.44, 0.985);
   transition: width 800ms cubic-bezier(0.26, 0.86, 0.44, 0.985); }
 
 </style>
 
+<style type="text/css">
+.reveal h1 {
+    font-size: 2.5em;
+}
+.reveal h2 {
+    font-size: 1.7em;
+}
+
+</style>
 </head>
 <body>
 <div class="reveal">
 <div class="slides">
-<section id="sec-title-slide"><h2>PA200 - Cloud Computing Concepts</h2><h3>Petr Blaho<br/>&lt;<a href="mailto:pblaho@redhat.com">pblaho@redhat.com</a>&gt;</h3>
+<section id="sec-title-slide"><h1 class="title">PA200 - Cloud Computing Concepts</h1><h2 class="author">Petr Blaho, Ilya Etingof</h2><p class="date">Created: 2018-03-05 Mon 22:21</p>
 </section>
 
 
 <section>
-<section id="slide-org475d033">
-<h2 id="org475d033">Virtualization</h2>
-<div class="outline-text-2" id="text-org475d033">
-</div></section>
+<section id="slide-orgf08dfd9">
+<h2 id="orgf08dfd9">Virtualization</h2>
+
+</section>
 </section>
 <section>
-<section id="slide-org24c58f1">
-<h3 id="org24c58f1">Why?</h3>
+<section id="slide-orgec1da12">
+<h2 id="orgec1da12">Warm-up</h2>
 <ul>
-<li class="fragment appear">Consolidation of resources</li>
-<li class="fragment appear">Virtual vs Physical machine inspection</li>
-<li class="fragment appear">Easy provisioning</li>
-<li class="fragment appear">Movable resource</li>
+<li class="fragment appear">What is cloud computing?</li>
+<li class="fragment appear">Cloud traits?</li>
+<li class="fragment appear">Cloud deployment models?</li>
 
 </ul>
 
 </section>
 </section>
 <section>
-<section id="slide-orgbcc373a">
-<h3 id="orgbcc373a">Why?</h3>
+<section id="slide-orgef88493">
+<h2 id="orgef88493">What is cloud computing?</h2>
+<ol>
+<li class="fragment appear">Usage model of computer resources</li>
+<li class="fragment appear">Networked computers</li>
+<li class="fragment appear">Distributed computing technology</li>
+<li class="fragment appear">A collection of heterogeneous computers</li>
+
+</ol>
+
+</section>
+</section>
+<section>
+<section id="slide-org5ca1f8f">
+<h2 id="org5ca1f8f">Cloud traits?</h2>
+<ol>
+<li class="fragment appear">High availability</li>
+<li class="fragment appear">On-demand self-service</li>
+<li class="fragment appear">High performance</li>
+<li class="fragment appear">Broad network access</li>
+<li class="fragment appear">Resource pooling</li>
+<li class="fragment appear">Rapid elasticity</li>
+<li class="fragment appear">Measured Service</li>
+
+</ol>
+
+</section>
+</section>
+<section>
+<section id="slide-org149c2d8">
+<h2 id="org149c2d8">Cloud service models?</h2>
+<ol>
+<li class="fragment appear">Software as a Service</li>
+<li class="fragment appear">Application as a Service</li>
+<li class="fragment appear">Platform as a Service</li>
+<li class="fragment appear">Infrastructure as a Service</li>
+<li class="fragment appear">Data as a Service</li>
+
+</ol>
+
+</section>
+</section>
+<section>
+<section id="slide-orgf0849a0">
+<h2 id="orgf0849a0">Cloud deployment models</h2>
+<ol>
+<li class="fragment appear">Public Cloud</li>
+<li class="fragment appear">Private Cloud</li>
+<li class="fragment appear">Hybrid Cloud</li>
+<li class="fragment appear">Personal Cloud</li>
+<li class="fragment appear">Community Cloud</li>
+<li class="fragment appear">Enterprise Cloud</li>
+
+</ol>
+
+</section>
+</section>
+<section>
+<section id="slide-org573a273">
+<h2 id="org573a273">History of virtualization</h2>
 <ul>
-<li class="fragment appear">Recoverable</li>
-<li class="fragment appear">Easier testing and evaluation</li>
-<li class="fragment appear">Duplication of environments</li>
-<li class="fragment appear">Isolation from host HW and OS</li>
+<li class="fragment appear">How old is virtualization?</li>
 
 </ul>
 
 </section>
 </section>
 <section>
-<section id="slide-org4639535">
-<h2 id="org4639535">Hypervisors</h2>
+<section id="slide-org36497cc">
+<h2 id="org36497cc">History of virtualization</h2>
 <ul>
-<li class="fragment appear">native</li>
-<li class="fragment appear">hosted</li>
+<li class="fragment appear">Early 1960: batch processing</li>
+<li class="fragment appear">1967: first time-sharing system - IBM S/370-67</li>
+<li class="fragment appear">2005: Intel VT-x, AMD-V - new instruction set</li>
+<li class="fragment appear">2005-: VMware, VirtualBox, KVM&#x2026;</li>
 
 </ul>
+
 </section>
 </section>
 <section>
-<section id="slide-org3f4d6dc">
-<h3 id="org3f4d6dc">Hypervisors</h3>
+<section id="slide-orgd1ad1b7">
+<h2 id="orgd1ad1b7">What exactly is virtualization?</h2>
+<ul>
+<li class="fragment appear">Multi-programming vs multi-tasking</li>
+<li class="fragment appear">Multi-threading vs multi-tasking vs virtualization?</li>
+<li class="fragment appear">Containers vs OS virtualization</li>
+<li class="fragment appear">CPUs: Multi-core vs Hyper-threading</li>
+
+</ul>
+
+</section>
+</section>
+<section>
+<section id="slide-org8895fd3">
+<h2 id="org8895fd3">How did virtualization work before 2005?</h2>
+<ul>
+<li class="fragment appear">Well, sloooowly&#x2026;</li>
+<li class="fragment appear">Basing on 80386 CPU features</li>
+
+</ul>
+
+</section>
+</section>
+<section>
+<section id="slide-org3c1a8bb">
+<h2 id="org3c1a8bb">Is it cloud already?</h2>
+<ul>
+<li class="fragment appear">What is virtualization?</li>
+<li class="fragment appear">What is cloud?</li>
+
+</ul>
+
+</section>
+</section>
+<section>
+<section id="slide-org453815f">
+<h2 id="org453815f">Is it cloud already?</h2>
+<ul>
+<li class="fragment appear">Hypervisors</li>
+<li class="fragment appear">Virtualization management and services</li>
+
+</ul>
+
+</section>
+</section>
+<section>
+<section id="slide-org88f6f60">
+<h2 id="org88f6f60">Hypervisors</h2>
+<ul>
+<li class="fragment appear">Native or bare-metal</li>
+<li class="fragment appear">Hosted</li>
+
+</ul>
+
+</section>
+</section>
+<section>
+<section id="slide-orgdf948ba">
+<h3 id="orgdf948ba">Hypervisors</h3>
 
 <div class="figure">
 <p><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZIAAAD7CAYAAABADhLcAAArr0lEQVR42u1dvYskR55N+YIelnWP
@@ -1935,8 +2220,19 @@ AAAASUVORK5CYII=" />
 </section>
 </section>
 <section>
-<section id="slide-orgc2b139d">
-<h2 id="orgc2b139d">Examples of native hypervisors</h2>
+<section id="slide-org39a1aa8">
+<h2 id="org39a1aa8">Full or para-virtualization</h2>
+<ul>
+<li class="fragment appear">Full: unmodified OS on top of hypervisor</li>
+<li class="fragment appear">Para: modified OS calls hypervisor API</li>
+
+</ul>
+
+</section>
+</section>
+<section>
+<section id="slide-org0c00a50">
+<h2 id="org0c00a50">Examples of native hypervisors</h2>
 <ul>
 <li class="fragment appear">XEN</li>
 <li class="fragment appear">MS Hyper-V</li>
@@ -1947,32 +2243,34 @@ AAAASUVORK5CYII=" />
 </section>
 </section>
 <section>
-<section id="slide-org289a22e">
-<h2 id="org289a22e">Examples of hosted hypervisors</h2>
+<section id="slide-orged34868">
+<h2 id="orged34868">Examples of hosted hypervisors</h2>
 <ul>
 <li class="fragment appear">QEMU</li>
 <li class="fragment appear">KVM</li>
 <li class="fragment appear">VirtualBox</li>
 <li class="fragment appear">VMware Workstation</li>
+<li class="fragment appear">FreeBSD bhyve</li>
 
 </ul>
 
 </section>
 </section>
 <section>
-<section id="slide-orgf97b8fc">
-<h2 id="orgf97b8fc">XEN</h2>
+<section id="slide-orgc239def">
+<h2 id="orgc239def">XEN</h2>
 <ul>
 <li class="fragment appear">founded in 2003 by XenSource, bought in 2007 by Citrix</li>
 <li class="fragment appear">2013 under Linux Foundation as Xen Project</li>
 <li class="fragment appear">native hypervisor</li>
 
 </ul>
+
 </section>
 </section>
 <section>
-<section id="slide-org2f72708">
-<h2 id="org2f72708">ZEN</h2>
+<section id="slide-orgc801464">
+<h2 id="orgc801464">ZEN</h2>
 
 <div class="figure">
 <p><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAyAAAAIkCAYAAADmlk/KAAAABHNCSVQICAgIfAhkiAAAAAlwSFlz
@@ -3835,8 +4133,8 @@ ssyaYRhlrXXJbct7Zn4iohf6LBy3/ZznA0tbVmG8mLJZAAAAAElFTkSuQmCC" />
 </section>
 </section>
 <section>
-<section id="slide-org9c19a2f">
-<h2 id="org9c19a2f">KVM</h2>
+<section id="slide-org755aceb">
+<h2 id="org755aceb">KVM</h2>
 <ul>
 <li class="fragment appear">Modular kernel virtualization</li>
 <li class="fragment appear">provides user space access to hw virtualization</li>
@@ -3844,11 +4142,12 @@ ssyaYRhlrXXJbct7Zn4iohf6LBy3/ZznA0tbVmG8mLJZAAAAAElFTkSuQmCC" />
 <li class="fragment appear">2007 merged into linux kernel</li>
 
 </ul>
+
 </section>
 </section>
 <section>
-<section id="slide-org188835c">
-<h2 id="org188835c">KVM</h2>
+<section id="slide-orge82593b">
+<h2 id="orge82593b">KVM</h2>
 
 <div class="figure">
 <p><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAgAAAAIeCAYAAADNpLcRAAAABmJLR0QA/wD/AP+gvaeTAAAgAElE
@@ -4990,34 +5289,126 @@ gg==" />
 </section>
 </section>
 <section>
-<section id="slide-org2256fd9">
-<h2 id="org2256fd9">QEMU</h2>
+<section id="slide-org11ab749">
+<h2 id="org11ab749">QEMU</h2>
 <ul>
 <li class="fragment appear">hosted hypervisor</li>
-<li class="fragment appear">provides emulation of hw</li>
-<li class="fragment appear">can be used with KVM for hw virtualization</li>
+<li class="fragment appear">provides CPU and/or hardware emulation</li>
+<li class="fragment appear">can be used with KVM (hardware-only emulation)</li>
 
 </ul>
 
 </section>
 </section>
 <section>
-<section id="slide-org5f61fef">
-<h2 id="org5f61fef">Libvirt</h2>
+<section id="slide-org2887424">
+<h2 id="org2887424">QEMU</h2>
 <ul>
-<li class="fragment appear">Common API for hypervisor type abstraction</li>
-<li class="fragment appear">supports</li>
+<li class="fragment appear">Other practical QEMU use-cases?</li>
+
+</ul>
+
+</section>
+</section>
+<section>
+<section id="slide-org6e74c12">
+<h2 id="org6e74c12">Type 1 vs type 2 confusion</h2>
+<ul>
+<li class="fragment appear">Linux with KVM</li>
+<li class="fragment appear">FreeBSD with bhyve</li>
+
+</ul>
+
+</section>
+</section>
+<section>
+<section id="slide-orgb5a2d27">
+<h2 id="orgb5a2d27">Full vs para-virtualization</h2>
+<ul>
+<li class="fragment appear">Full: run unmodified OS image</li>
+<li class="fragment appear">Para: OS explicitly calls hypervisor</li>
+
+</ul>
+
+</section>
+</section>
+<section>
+<section id="slide-orgaa278b4">
+<h2 id="orgaa278b4">Para-virtualization</h2>
+<ul>
+<li class="fragment appear">Why?</li>
+
+</ul>
+
+</section>
+</section>
+<section>
+<section id="slide-orgb998046">
+<h3 id="orgb998046">Why is it called Hypervisor?</h3>
+<ul>
+<li class="fragment appear">What's behind the name?</li>
+
+</ul>
+
+</section>
+</section>
+<section>
+<section id="slide-org7acdc08">
+<h2 id="org7acdc08">Virtualization management</h2>
+<ul>
+<li class="fragment appear">Common API to different hypervisors</li>
+<li class="fragment appear">High-level VM lifecycle abstraction</li>
+<li class="fragment appear">Cloud services: networks, storage&#x2026;</li>
+
+</ul>
+
+</section>
+</section>
+<section>
+<section id="slide-org9a69e3f">
+<h2 id="org9a69e3f">Cloud services</h2>
+<ul>
+<li class="fragment appear">OS image deployment</li>
+<li class="fragment appear">Centralized OS configuration</li>
+<li class="fragment appear">Automated network configuration</li>
+<li class="fragment appear">Instance backup/snapshot/migration</li>
+<li class="fragment appear">Centralized user authentication</li>
+<li class="fragment appear">Centralized storage</li>
+<li class="fragment appear">User interface</li>
+
+</ul>
+
+</section>
+</section>
+<section>
+<section id="slide-orgce134cd">
+<h2 id="orgce134cd">Examples of virtualization software</h2>
+<ul>
+<li class="fragment appear">libvirt</li>
+<li class="fragment appear">oVirt</li>
+<li class="fragment appear">OpenStack</li>
+
+</ul>
+
+</section>
+</section>
+<section>
+<section id="slide-orga222953">
+<h2 id="orga222953">Libvirt</h2>
+<ul>
+<li class="fragment appear">Common API for hypervisor type abstraction supports</li>
 <li class="fragment appear">LXC</li>
 <li class="fragment appear">KVM/QEMU, Xen, VirtualBox</li>
 <li class="fragment appear">VMware ESXi and Workstation</li>
 <li class="fragment appear">MS Hyper-V, IBM PowerVM</li>
 
 </ul>
+
 </section>
 </section>
 <section>
-<section id="slide-org3852b58">
-<h2 id="org3852b58">Libvirt</h2>
+<section id="slide-org988cba3">
+<h2 id="org988cba3">Libvirt</h2>
 
 <div class="figure">
 <p><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAgAAAAEgCAYAAADCPMtRAAAABmJLR0QA/wD/AP+gvaeTAAAgAElE
@@ -5390,14 +5781,14 @@ aKcDzd08ynBgMZAqNG2WlDISKa8ktelC0yqR8nsp5WfAx0BpD46j9GaM0psxSm+eofQG/B8BGejn
 </section>
 </section>
 <section>
-<section id="slide-org8b82205">
-<h2 id="org8b82205">oVirt</h2>
+<section id="slide-org06096da">
+<h2 id="org06096da">oVirt</h2>
 <ul>
-<li class="fragment appear">virtualization management platform</li>
-<li class="fragment appear">on top of KVM</li>
-<li class="fragment appear">upstream for RHV</li>
-<li class="fragment appear">engine</li>
-<li class="fragment appear">node</li>
+<li class="fragment appear">Virtualization management platform</li>
+<li class="fragment appear">On top of KVM</li>
+<li class="fragment appear">Upstream for RHV</li>
+<li class="fragment appear">Engine</li>
+<li class="fragment appear">Node</li>
 <li class="fragment appear">VDSM - virtual desktop and server manager</li>
 
 </ul>
@@ -5405,19 +5796,20 @@ aKcDzd08ynBgMZAqNG2WlDISKa8ktelC0yqR8nsp5WfAx0BpD46j9GaM0psxSm+eofQG/B8BGejn
 </section>
 </section>
 <section>
-<section id="slide-org845f6b0">
-<h2 id="org845f6b0">OpenStack</h2>
+<section id="slide-org5b03712">
+<h2 id="org5b03712">OpenStack</h2>
 <ul>
-<li class="fragment appear">software platform for cloud computing</li>
-<li class="fragment appear">started in 2010 by Rackspace and NASA</li>
-<li class="fragment appear">in 2012 founded OpenStack Foundation</li>
+<li class="fragment appear">Software platform for cloud computing</li>
+<li class="fragment appear">Started in 2010 by Rackspace and NASA</li>
+<li class="fragment appear">In 2012 founded OpenStack Foundation</li>
 
 </ul>
+
 </section>
 </section>
 <section>
-<section id="slide-orgaed2919">
-<h2 id="orgaed2919">OpenStack</h2>
+<section id="slide-org40aeffa">
+<h2 id="org40aeffa">OpenStack</h2>
 
 <div class="figure">
 <p><img src="data:image/jpg;base64,/9j/4AAQSkZJRgABAQEAZABkAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcU
@@ -6477,11 +6869,12 @@ BERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERARE
 Qf/Z" />
 </p>
 </div>
+
 </section>
 </section>
 <section>
-<section id="slide-orge7fd8b9">
-<h2 id="orge7fd8b9">OpenStack</h2>
+<section id="slide-orgfa97cb7">
+<h2 id="orgfa97cb7">OpenStack</h2>
 
 <div class="figure">
 <p><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAABl4AAASGCAYAAABIRdN8AAAABmJLR0QA/wD/AP+gvaeTAAAACXBI
@@ -18615,8 +19008,19 @@ yUUE5MAdhcAAAAAASUVORK5CYII=" />
 </section>
 </section>
 <section>
-<section id="slide-orgf33a817">
-<h2 id="orgf33a817">Containers</h2>
+<section id="slide-orga2ec7c5">
+<h2 id="orga2ec7c5">Hypervisors vs Containers</h2>
+<ul>
+<li class="fragment appear">Hypervisors spawn VMs</li>
+<li class="fragment appear">Containers isolates apps to namespaces</li>
+
+</ul>
+
+</section>
+</section>
+<section>
+<section id="slide-org43826c6">
+<h2 id="org43826c6">Example container software</h2>
 <ul>
 <li class="fragment appear">Docker</li>
 <li class="fragment appear">LXC</li>
@@ -18628,12 +19032,108 @@ yUUE5MAdhcAAAAAASUVORK5CYII=" />
 </section>
 </section>
 <section>
-<section id="slide-org06484b0">
-<h2 id="org06484b0">Recap</h2>
+<section id="slide-org67a726a">
+<h2 id="org67a726a">Cloud features</h2>
 <ul>
-<li class="fragment appear">Why we should use virtualization?</li>
-<li class="fragment appear">What types of hypervisors we know? Any examples?</li>
-<li class="fragment appear">Name some projects that uses or build on top of hypervisor technologies.</li>
+<li class="fragment appear">Easy provisioning and configuration</li>
+<li class="fragment appear">Movable resource: snapshot/backup/live migration</li>
+<li class="fragment appear">Consolidation of resources: scale up/down</li>
+
+</ul>
+
+</section>
+</section>
+<section>
+<section id="slide-orgd1175ff">
+<h3 id="orgd1175ff">Cloud features</h3>
+<ul>
+<li class="fragment appear">Isolation from host HW and OS</li>
+<li class="fragment appear">Virtual vs Physical machine monitoring</li>
+<li class="fragment appear">Easier testing and evaluation</li>
+<li class="fragment appear">Duplication of environments</li>
+
+</ul>
+
+</section>
+</section>
+<section>
+<section id="slide-org3ffc9ea">
+<h2 id="org3ffc9ea">Recap: the age of virtualization?</h2>
+<ol>
+<li>IBM 700/7000, since 1952</li>
+<li>CP-40 research project, early sixties</li>
+<li>IBM S/370-67, 1966</li>
+<li>Gameframes, since 2007</li>
+<li>Intel VT-x, AMD-V, since 2005</li>
+
+</ol>
+
+</section>
+</section>
+<section>
+<section id="slide-orga9dbd88">
+<h2 id="orga9dbd88">Recap: virtualization technologies?</h2>
+<ol>
+<li>Multi-tasking</li>
+<li>Multi-threading processes</li>
+<li>Containers</li>
+<li>Hyper-threading CPU</li>
+<li>Multi-core CPU</li>
+<li>Intel VT-x, AMD-V</li>
+<li>Multi-programming</li>
+
+</ol>
+
+</section>
+</section>
+<section>
+<section id="slide-orgb5d51b4">
+<h2 id="orgb5d51b4">Recap: hypervisor types?</h2>
+<ol>
+<li>Hybryd</li>
+<li>Bare-metal</li>
+<li>Native</li>
+<li>Hosted</li>
+<li>Para-hypervisor</li>
+
+</ol>
+
+</section>
+</section>
+<section>
+<section id="slide-org359b7d9">
+<h2 id="org359b7d9">Recap: what makes up a cloud?</h2>
+<ol>
+<li>One hypervisor</li>
+<li>One or more hypervisors</li>
+<li>Baremetal computers</li>
+<li>Baremetal switches and routers</li>
+<li>Networking service</li>
+
+</ol>
+
+</section>
+</section>
+<section>
+<section id="slide-orga4e16d8">
+<h2 id="orga4e16d8">Recap: virtualization vs containers?</h2>
+<ol>
+<li>We can run OS in a container</li>
+<li>We can run different OS'es in containers</li>
+<li>We can run VM in a container</li>
+<li>Containers are more secure than VM</li>
+<li>Containers consume less resources than VM</li>
+<li>We can run Windows app in Linux container</li>
+
+</ol>
+
+</section>
+</section>
+<section>
+<section id="slide-orgb2a24f1">
+<h2 id="orgb2a24f1">Bonus question: matreshka cloud?</h2>
+<ul>
+<li>Can you run a cloud in a cloud?</li>
 
 </ul>
 </section>
@@ -18652,10 +19152,10 @@ yUUE5MAdhcAAAAAASUVORK5CYII=" />
 */
 /*!
  * reveal.js
- * http://lab.hakim.se/reveal-js
+ * http://revealjs.com
  * MIT licensed
  *
- * Copyright (C) 2016 Hakim El Hattab, http://hakim.se
+ * Copyright (C) 2017 Hakim El Hattab, http://hakim.se
  */
 (function( root, factory ) {
 	if( typeof define === 'function' && define.amd ) {
@@ -18678,7 +19178,7 @@ yUUE5MAdhcAAAAAASUVORK5CYII=" />
 	var Reveal;
 
 	// The reveal.js version
-	var VERSION = '3.4.1';
+	var VERSION = '3.6.0';
 
 	var SLIDES_SELECTOR = '.slides section',
 		HORIZONTAL_SLIDES_SELECTOR = '.slides>section',
@@ -18701,14 +19201,28 @@ yUUE5MAdhcAAAAAASUVORK5CYII=" />
 			minScale: 0.2,
 			maxScale: 2.0,
 
-			// Display controls in the bottom right corner
+			// Display presentation control arrows
 			controls: true,
+
+			// Help the user learn the controls by providing hints, for example by
+			// bouncing the down arrow when they first encounter a vertical slide
+			controlsTutorial: true,
+
+			// Determines where controls appear, "edges" or "bottom-right"
+			controlsLayout: 'bottom-right',
+
+			// Visibility rule for backwards navigation arrows; "faded", "hidden"
+			// or "visible"
+			controlsBackArrows: 'faded',
 
 			// Display a presentation progress bar
 			progress: true,
 
 			// Display the page number of the current slide
 			slideNumber: false,
+
+			// Determine which displays to show the slide number on
+			showSlideNumber: 'all',
 
 			// Push each slide change to the browser history
 			history: false,
@@ -18754,9 +19268,17 @@ yUUE5MAdhcAAAAAASUVORK5CYII=" />
 			// Flags if speaker notes should be visible to all viewers
 			showNotes: false,
 
-			// Number of milliseconds between automatically proceeding to the
-			// next slide, disabled when set to 0, this value can be overwritten
-			// by using a data-autoslide attribute on your slides
+			// Global override for autolaying embedded media (video/audio/iframe)
+			// - null:   Media will only autoplay if data-autoplay is present
+			// - true:   All media will autoplay, regardless of individual setting
+			// - false:  No media will autoplay, regardless of individual setting
+			autoPlayMedia: null,
+
+			// Controls automatic progression to the next slide
+			// - 0:      Auto-sliding only happens if the data-autoslide HTML attribute
+			//           is present on the current slide or fragment
+			// - 1+:     All slides will progress automatically at the given interval
+			// - false:  No auto-sliding, even if data-autoslide is present
 			autoSlide: 0,
 
 			// Stop auto-sliding after user input
@@ -18775,6 +19297,8 @@ yUUE5MAdhcAAAAAASUVORK5CYII=" />
 			hideAddressBar: true,
 
 			// Opens links in an iframe preview overlay
+			// Add `data-preview-link` and `data-preview-link="false"` to customise each link
+			// individually
 			previewLinks: false,
 
 			// Exposes the reveal.js API through window.postMessage
@@ -18809,8 +19333,18 @@ yUUE5MAdhcAAAAAASUVORK5CYII=" />
 			// to PDF, unlimited by default
 			pdfMaxPagesPerSlide: Number.POSITIVE_INFINITY,
 
+			// Offset used to reduce the height of content within exported PDF pages.
+			// This exists to account for environment differences based on how you
+			// print to PDF. CLI printing options, like phantomjs and wkpdf, can end
+			// on precisely the total height of the document whereas in-browser
+			// printing has to end one pixel before.
+			pdfPageHeightOffset: -1,
+
 			// Number of slides away from the current that are visible
 			viewDistance: 3,
+
+			// The display mode that will be used to show slides
+			display: 'block',
 
 			// Script dependencies to load
 			dependencies: []
@@ -18839,6 +19373,10 @@ yUUE5MAdhcAAAAAASUVORK5CYII=" />
 		currentSlide,
 
 		previousBackground,
+
+		// Remember which directions that the user has navigated towards
+		hasNavigatedRight = false,
+		hasNavigatedDown = false,
 
 		// Slides may hold a data-state attribute which we pick up and apply
 		// as a class to the body. This list contains the combined state of
@@ -19077,6 +19615,8 @@ yUUE5MAdhcAAAAAASUVORK5CYII=" />
 	 */
 	function start() {
 
+		loaded = true;
+
 		// Make sure we've got all the DOM elements we need
 		setupDOM();
 
@@ -19103,8 +19643,6 @@ yUUE5MAdhcAAAAAASUVORK5CYII=" />
 		setTimeout( function() {
 			// Enable transitions now that we're loaded
 			dom.slides.classList.remove( 'no-transition' );
-
-			loaded = true;
 
 			dom.wrapper.classList.add( 'ready' );
 
@@ -19141,6 +19679,20 @@ yUUE5MAdhcAAAAAASUVORK5CYII=" />
 		// Prevent transitions while we're loading
 		dom.slides.classList.add( 'no-transition' );
 
+		if( isMobileDevice ) {
+			dom.wrapper.classList.add( 'no-hover' );
+		}
+		else {
+			dom.wrapper.classList.remove( 'no-hover' );
+		}
+
+		if( /iphone/gi.test( UA ) ) {
+			dom.wrapper.classList.add( 'ua-iphone' );
+		}
+		else {
+			dom.wrapper.classList.remove( 'ua-iphone' );
+		}
+
 		// Background element
 		dom.background = createSingletonNode( dom.wrapper, 'div', 'backgrounds', null );
 
@@ -19149,11 +19701,11 @@ yUUE5MAdhcAAAAAASUVORK5CYII=" />
 		dom.progressbar = dom.progress.querySelector( 'span' );
 
 		// Arrow controls
-		createSingletonNode( dom.wrapper, 'aside', 'controls',
-			'<button class="navigate-left" aria-label="previous slide"></button>' +
-			'<button class="navigate-right" aria-label="next slide"></button>' +
-			'<button class="navigate-up" aria-label="above slide"></button>' +
-			'<button class="navigate-down" aria-label="below slide"></button>' );
+		dom.controls = createSingletonNode( dom.wrapper, 'aside', 'controls',
+			'<button class="navigate-left" aria-label="previous slide"><div class="controls-arrow"></div></button>' +
+			'<button class="navigate-right" aria-label="next slide"><div class="controls-arrow"></div></button>' +
+			'<button class="navigate-up" aria-label="above slide"><div class="controls-arrow"></div></button>' +
+			'<button class="navigate-down" aria-label="below slide"><div class="controls-arrow"></div></button>' );
 
 		// Slide number
 		dom.slideNumber = createSingletonNode( dom.wrapper, 'div', 'slide-number', '' );
@@ -19166,9 +19718,6 @@ yUUE5MAdhcAAAAAASUVORK5CYII=" />
 		// Overlay graphic which is displayed during the paused mode
 		createSingletonNode( dom.wrapper, 'div', 'pause-overlay', null );
 
-		// Cache references to elements
-		dom.controls = document.querySelector( '.reveal .controls' );
-
 		dom.wrapper.setAttribute( 'role', 'application' );
 
 		// There can be multiple instances of controls throughout the page
@@ -19178,6 +19727,10 @@ yUUE5MAdhcAAAAAASUVORK5CYII=" />
 		dom.controlsDown = toArray( document.querySelectorAll( '.navigate-down' ) );
 		dom.controlsPrev = toArray( document.querySelectorAll( '.navigate-prev' ) );
 		dom.controlsNext = toArray( document.querySelectorAll( '.navigate-next' ) );
+
+		// The right and down arrows in the standard reveal.js controls
+		dom.controlsRightArrow = dom.controls.querySelector( '.navigate-right' );
+		dom.controlsDownArrow = dom.controls.querySelector( '.navigate-down' );
 
 		dom.statusDiv = createStatusDiv();
 	}
@@ -19257,7 +19810,7 @@ yUUE5MAdhcAAAAAASUVORK5CYII=" />
 			slideHeight = slideSize.height;
 
 		// Let the browser know what page size we want to print
-		injectStyleSheet( '@page{size:'+ pageWidth +'px '+ pageHeight +'px; margin: 0 0 -1px 0;}' );
+		injectStyleSheet( '@page{size:'+ pageWidth +'px '+ pageHeight +'px; margin: 0px;}' );
 
 		// Limit the size of certain elements to the dimensions of the slide
 		injectStyleSheet( '.reveal section>img, .reveal section>video, .reveal section>iframe{max-width: '+ slideWidth +'px; max-height:'+ slideHeight +'px}' );
@@ -19265,6 +19818,9 @@ yUUE5MAdhcAAAAAASUVORK5CYII=" />
 		document.body.classList.add( 'print-pdf' );
 		document.body.style.width = pageWidth + 'px';
 		document.body.style.height = pageHeight + 'px';
+
+		// Make sure stretch elements fit on slide
+		layoutSlideContents( slideWidth, slideHeight );
 
 		// Add each slide's index as attributes on itself, we need these
 		// indices to generate slide numbers below
@@ -19304,7 +19860,7 @@ yUUE5MAdhcAAAAAASUVORK5CYII=" />
 				// so that no page ever flows onto another
 				var page = document.createElement( 'div' );
 				page.className = 'pdf-page';
-				page.style.height = ( pageHeight * numberOfPages ) + 'px';
+				page.style.height = ( ( pageHeight + config.pdfPageHeightOffset ) * numberOfPages ) + 'px';
 				slide.parentNode.insertBefore( page, slide );
 				page.appendChild( slide );
 
@@ -19347,7 +19903,7 @@ yUUE5MAdhcAAAAAASUVORK5CYII=" />
 				}
 
 				// Inject slide numbers if `slideNumbers` are enabled
-				if( config.slideNumber ) {
+				if( config.slideNumber && /all|print/i.test( config.showSlideNumber ) ) {
 					var slideNumberH = parseInt( slide.getAttribute( 'data-index-h' ), 10 ) + 1,
 						slideNumberV = parseInt( slide.getAttribute( 'data-index-v' ), 10 ) + 1;
 
@@ -19419,7 +19975,7 @@ yUUE5MAdhcAAAAAASUVORK5CYII=" />
 
 		// If no node was found, create it now
 		var node = document.createElement( tagname );
-		node.classList.add( classname );
+		node.className = classname;
 		if( typeof innerHTML === 'string' ) {
 			node.innerHTML = innerHTML;
 		}
@@ -19511,7 +20067,7 @@ yUUE5MAdhcAAAAAASUVORK5CYII=" />
 
 		if( data.background ) {
 			// Auto-wrap image urls in url(...)
-			if( /^(http|file|\/\/)/gi.test( data.background ) || /\.(svg|png|jpg|jpeg|gif|bmp)$/gi.test( data.background ) ) {
+			if( /^(http|file|\/\/)/gi.test( data.background ) || /\.(svg|png|jpg|jpeg|gif|bmp)([?#]|$)/gi.test( data.background ) ) {
 				slide.setAttribute( 'data-background-image', data.background );
 			}
 			else {
@@ -19536,6 +20092,7 @@ yUUE5MAdhcAAAAAASUVORK5CYII=" />
 
 		// Additional and optional background properties
 		if( data.backgroundSize ) element.style.backgroundSize = data.backgroundSize;
+		if( data.backgroundSize ) element.setAttribute( 'data-background-size', data.backgroundSize );
 		if( data.backgroundColor ) element.style.backgroundColor = data.backgroundColor;
 		if( data.backgroundRepeat ) element.style.backgroundRepeat = data.backgroundRepeat;
 		if( data.backgroundPosition ) element.style.backgroundPosition = data.backgroundPosition;
@@ -19611,13 +20168,21 @@ yUUE5MAdhcAAAAAASUVORK5CYII=" />
 	 */
 	function configure( options ) {
 
-		var numberOfSlides = dom.wrapper.querySelectorAll( SLIDES_SELECTOR ).length;
-
-		dom.wrapper.classList.remove( config.transition );
+		var oldTransition = config.transition;
 
 		// New config options may be passed when this method
 		// is invoked through the API after initialization
 		if( typeof options === 'object' ) extend( config, options );
+
+		// Abort if reveal.js hasn't finished loading, config
+		// changes will be applied automatically once loading
+		// finishes
+		if( loaded === false ) return;
+
+		var numberOfSlides = dom.wrapper.querySelectorAll( SLIDES_SELECTOR ).length;
+
+		// Remove the previously configured transition class
+		dom.wrapper.classList.remove( oldTransition );
 
 		// Force linear transition based on browser capabilities
 		if( features.transforms3d === false ) config.transition = 'linear';
@@ -19629,7 +20194,9 @@ yUUE5MAdhcAAAAAASUVORK5CYII=" />
 
 		dom.controls.style.display = config.controls ? 'block' : 'none';
 		dom.progress.style.display = config.progress ? 'block' : 'none';
-		dom.slideNumber.style.display = config.slideNumber && !isPrintingPDF() ? 'block' : 'none';
+
+		dom.controls.setAttribute( 'data-controls-layout', config.controlsLayout );
+		dom.controls.setAttribute( 'data-controls-back-arrows', config.controlsBackArrows );
 
 		if( config.shuffle ) {
 			shuffle();
@@ -19655,11 +20222,7 @@ yUUE5MAdhcAAAAAASUVORK5CYII=" />
 		}
 
 		if( config.showNotes ) {
-			dom.speakerNotes.classList.add( 'visible' );
 			dom.speakerNotes.setAttribute( 'data-layout', typeof config.showNotes === 'string' ? config.showNotes : 'inline' );
-		}
-		else {
-			dom.speakerNotes.classList.remove( 'visible' );
 		}
 
 		if( config.mouseWheel ) {
@@ -19682,10 +20245,11 @@ yUUE5MAdhcAAAAAASUVORK5CYII=" />
 		// Iframe link previews
 		if( config.previewLinks ) {
 			enablePreviewLinks();
+			disablePreviewLinks( '[data-preview-link=false]' );
 		}
 		else {
 			disablePreviewLinks();
-			enablePreviewLinks( '[data-preview-link]' );
+			enablePreviewLinks( '[data-preview-link]:not([data-preview-link=false])' );
 		}
 
 		// Remove existing auto-slide controls
@@ -19711,6 +20275,19 @@ yUUE5MAdhcAAAAAASUVORK5CYII=" />
 				element.classList.remove( 'current-fragment' );
 			} );
 		}
+
+		// Slide numbers
+		var slideNumberDisplay = 'none';
+		if( config.slideNumber && !isPrintingPDF() ) {
+			if( config.showSlideNumber === 'all' ) {
+				slideNumberDisplay = 'block';
+			}
+			else if( config.showSlideNumber === 'speaker' && isSpeakerNotes() ) {
+				slideNumberDisplay = 'block';
+			}
+		}
+
+		dom.slideNumber.style.display = slideNumberDisplay;
 
 		sync();
 
@@ -19851,6 +20428,8 @@ yUUE5MAdhcAAAAAASUVORK5CYII=" />
 			a[ i ] = b[ i ];
 		}
 
+		return a;
+
 	}
 
 	/**
@@ -19877,7 +20456,7 @@ yUUE5MAdhcAAAAAASUVORK5CYII=" />
 			if( value === 'null' ) return null;
 			else if( value === 'true' ) return true;
 			else if( value === 'false' ) return false;
-			else if( value.match( /^\d+$/ ) ) return parseFloat( value );
+			else if( value.match( /^-?[\d\.]+$/ ) ) return parseFloat( value );
 		}
 
 		return value;
@@ -20078,7 +20657,7 @@ yUUE5MAdhcAAAAAASUVORK5CYII=" />
 	 * target element.
 	 *
 	 * remaining height = [ configured parent height ] - [ current parent height ]
-	 * 
+	 *
 	 * @param {HTMLElement} element
 	 * @param {number} [height]
 	 */
@@ -20221,9 +20800,9 @@ yUUE5MAdhcAAAAAASUVORK5CYII=" />
 	/**
 	 * Unbind preview frame links.
 	 */
-	function disablePreviewLinks() {
+	function disablePreviewLinks( selector ) {
 
-		var anchors = toArray( document.querySelectorAll( 'a' ) );
+		var anchors = toArray( document.querySelectorAll( selector ? selector : 'a' ) );
 
 		anchors.forEach( function( element ) {
 			if( /^(http|www)/gi.test( element.getAttribute( 'href' ) ) ) {
@@ -20278,6 +20857,28 @@ yUUE5MAdhcAAAAAASUVORK5CYII=" />
 			dom.overlay.classList.add( 'visible' );
 		}, 1 );
 
+	}
+
+	/**
+	 * Open or close help overlay window.
+	 *
+	 * @param {Boolean} [override] Flag which overrides the
+	 * toggle logic and forcibly sets the desired state. True means
+	 * help is open, false means it's closed.
+	 */
+	function toggleHelp( override ){
+
+		if( typeof override === 'boolean' ) {
+			override ? showHelp() : closeOverlay();
+		}
+		else {
+			if( dom.overlay ) {
+				closeOverlay();
+			}
+			else {
+				showHelp();
+			}
+		}
 	}
 
 	/**
@@ -20421,6 +21022,10 @@ yUUE5MAdhcAAAAAASUVORK5CYII=" />
 
 			updateProgress();
 			updateParallax();
+
+			if( isOverview() ) {
+				updateOverview();
+			}
 
 		}
 
@@ -20637,11 +21242,14 @@ yUUE5MAdhcAAAAAASUVORK5CYII=" />
 	 */
 	function updateOverview() {
 
+		var vmin = Math.min( window.innerWidth, window.innerHeight );
+		var scale = Math.max( vmin / 5, 150 ) / vmin;
+
 		transformSlides( {
 			overview: [
+				'scale('+ scale +')',
 				'translateX('+ ( -indexh * overviewSlideWidth ) +'px)',
-				'translateY('+ ( -indexv * overviewSlideHeight ) +'px)',
-				'translateZ('+ ( window.innerWidth < 400 ? -1000 : -2500 ) +'px)'
+				'translateY('+ ( -indexv * overviewSlideHeight ) +'px)'
 			].join( ' ' )
 		} );
 
@@ -21047,13 +21655,21 @@ yUUE5MAdhcAAAAAASUVORK5CYII=" />
 
 		updateControls();
 		updateProgress();
-		updateBackground( true );
 		updateSlideNumber();
 		updateSlidesVisibility();
+		updateBackground( true );
+		updateNotesVisibility();
 		updateNotes();
 
 		formatEmbeddedContent();
-		startEmbeddedContent( currentSlide );
+
+		// Start or stop embedded content depending on global config
+		if( config.autoPlayMedia === false ) {
+			stopEmbeddedContent( currentSlide, { unloadIframes: false } );
+		}
+		else {
+			startEmbeddedContent( currentSlide );
+		}
 
 		if( isOverview() ) {
 			layoutOverview();
@@ -21286,10 +21902,10 @@ yUUE5MAdhcAAAAAASUVORK5CYII=" />
 
 				// Show the horizontal slide if it's within the view distance
 				if( distanceX < viewDistance ) {
-					showSlide( horizontalSlide );
+					loadSlide( horizontalSlide );
 				}
 				else {
-					hideSlide( horizontalSlide );
+					unloadSlide( horizontalSlide );
 				}
 
 				if( verticalSlidesLength ) {
@@ -21302,14 +21918,30 @@ yUUE5MAdhcAAAAAASUVORK5CYII=" />
 						distanceY = x === ( indexh || 0 ) ? Math.abs( ( indexv || 0 ) - y ) : Math.abs( y - oy );
 
 						if( distanceX + distanceY < viewDistance ) {
-							showSlide( verticalSlide );
+							loadSlide( verticalSlide );
 						}
 						else {
-							hideSlide( verticalSlide );
+							unloadSlide( verticalSlide );
 						}
 					}
 
 				}
+			}
+
+			// Flag if there are ANY vertical slides, anywhere in the deck
+			if( dom.wrapper.querySelectorAll( '.slides>section>section' ).length ) {
+				dom.wrapper.classList.add( 'has-vertical-slides' );
+			}
+			else {
+				dom.wrapper.classList.remove( 'has-vertical-slides' );
+			}
+
+			// Flag if there are ANY horizontal slides, anywhere in the deck
+			if( dom.wrapper.querySelectorAll( '.slides>section' ).length > 1 ) {
+				dom.wrapper.classList.add( 'has-horizontal-slides' );
+			}
+			else {
+				dom.wrapper.classList.remove( 'has-horizontal-slides' );
 			}
 
 		}
@@ -21326,9 +21958,36 @@ yUUE5MAdhcAAAAAASUVORK5CYII=" />
 
 		if( config.showNotes && dom.speakerNotes && currentSlide && !isPrintingPDF() ) {
 
-			dom.speakerNotes.innerHTML = getSlideNotes() || '';
+			dom.speakerNotes.innerHTML = getSlideNotes() || '<span class="notes-placeholder">No notes on this slide.</span>';
 
 		}
+
+	}
+
+	/**
+	 * Updates the visibility of the speaker notes sidebar that
+	 * is used to share annotated slides. The notes sidebar is
+	 * only visible if showNotes is true and there are notes on
+	 * one or more slides in the deck.
+	 */
+	function updateNotesVisibility() {
+
+		if( config.showNotes && hasNotes() ) {
+			dom.wrapper.classList.add( 'show-notes' );
+		}
+		else {
+			dom.wrapper.classList.remove( 'show-notes' );
+		}
+
+	}
+
+	/**
+	 * Checks if there are speaker notes for ANY slide in the
+	 * presentation.
+	 */
+	function hasNotes() {
+
+		return dom.slides.querySelectorAll( '[data-notes], aside.notes' ).length > 0;
 
 	}
 
@@ -21462,6 +22121,26 @@ yUUE5MAdhcAAAAAASUVORK5CYII=" />
 
 		}
 
+		if( config.controlsTutorial ) {
+
+			// Highlight control arrows with an animation to ensure
+			// that the viewer knows how to navigate
+			if( !hasNavigatedDown && routes.down ) {
+				dom.controlsDownArrow.classList.add( 'highlight' );
+			}
+			else {
+				dom.controlsDownArrow.classList.remove( 'highlight' );
+
+				if( !hasNavigatedRight && routes.right && indexv === 0 ) {
+					dom.controlsRightArrow.classList.add( 'highlight' );
+				}
+				else {
+					dom.controlsRightArrow.classList.remove( 'highlight' );
+				}
+			}
+
+		}
+
 	}
 
 	/**
@@ -21525,34 +22204,17 @@ yUUE5MAdhcAAAAAASUVORK5CYII=" />
 
 		} );
 
-		// Stop any currently playing video background
+		// Stop content inside of previous backgrounds
 		if( previousBackground ) {
 
-			var previousVideo = previousBackground.querySelector( 'video' );
-			if( previousVideo ) previousVideo.pause();
+			stopEmbeddedContent( previousBackground );
 
 		}
 
+		// Start content in the current background
 		if( currentBackground ) {
 
-			// Start video playback
-			var currentVideo = currentBackground.querySelector( 'video' );
-			if( currentVideo ) {
-
-				var startVideo = function() {
-					currentVideo.currentTime = 0;
-					currentVideo.play();
-					currentVideo.removeEventListener( 'loadeddata', startVideo );
-				};
-
-				if( currentVideo.readyState > 1 ) {
-					startVideo();
-				}
-				else {
-					currentVideo.addEventListener( 'loadeddata', startVideo );
-				}
-
-			}
+			startEmbeddedContent( currentBackground );
 
 			var backgroundImageURL = currentBackground.style.backgroundImage || '';
 
@@ -21658,14 +22320,17 @@ yUUE5MAdhcAAAAAASUVORK5CYII=" />
 	 *
 	 * @param {HTMLElement} slide Slide to show
 	 */
-	function showSlide( slide ) {
+	function loadSlide( slide, options ) {
+
+		options = options || {};
 
 		// Show the slide element
-		slide.style.display = 'block';
+		slide.style.display = config.display;
 
 		// Media elements with data-src attributes
 		toArray( slide.querySelectorAll( 'img[data-src], video[data-src], audio[data-src]' ) ).forEach( function( element ) {
 			element.setAttribute( 'src', element.getAttribute( 'data-src' ) );
+			element.setAttribute( 'data-lazy-loaded', '' );
 			element.removeAttribute( 'data-src' );
 		} );
 
@@ -21676,6 +22341,7 @@ yUUE5MAdhcAAAAAASUVORK5CYII=" />
 			toArray( media.querySelectorAll( 'source[data-src]' ) ).forEach( function( source ) {
 				source.setAttribute( 'src', source.getAttribute( 'data-src' ) );
 				source.removeAttribute( 'data-src' );
+				source.setAttribute( 'data-lazy-loaded', '' );
 				sources += 1;
 			} );
 
@@ -21719,6 +22385,15 @@ yUUE5MAdhcAAAAAASUVORK5CYII=" />
 						video.muted = true;
 					}
 
+					// Inline video playback works (at least in Mobile Safari) as
+					// long as the video is muted and the `playsinline` attribute is
+					// present
+					if( isMobileDevice ) {
+						video.muted = true;
+						video.autoplay = true;
+						video.setAttribute( 'playsinline', '' );
+					}
+
 					// Support comma separated lists of video sources
 					backgroundVideo.split( ',' ).forEach( function( source ) {
 						video.innerHTML += '<source src="'+ source +'">';
@@ -21727,28 +22402,41 @@ yUUE5MAdhcAAAAAASUVORK5CYII=" />
 					background.appendChild( video );
 				}
 				// Iframes
-				else if( backgroundIframe ) {
+				else if( backgroundIframe && options.excludeIframes !== true ) {
 					var iframe = document.createElement( 'iframe' );
+					iframe.setAttribute( 'allowfullscreen', '' );
+					iframe.setAttribute( 'mozallowfullscreen', '' );
+					iframe.setAttribute( 'webkitallowfullscreen', '' );
+
+					// Only load autoplaying content when the slide is shown to
+					// avoid having it play in the background
+					if( /autoplay=(1|true|yes)/gi.test( backgroundIframe ) ) {
+						iframe.setAttribute( 'data-src', backgroundIframe );
+					}
+					else {
 						iframe.setAttribute( 'src', backgroundIframe );
-						iframe.style.width  = '100%';
-						iframe.style.height = '100%';
-						iframe.style.maxHeight = '100%';
-						iframe.style.maxWidth = '100%';
+					}
+
+					iframe.style.width  = '100%';
+					iframe.style.height = '100%';
+					iframe.style.maxHeight = '100%';
+					iframe.style.maxWidth = '100%';
 
 					background.appendChild( iframe );
 				}
 			}
+
 		}
 
 	}
 
 	/**
-	 * Called when the given slide is moved outside of the
-	 * configured view distance.
+	 * Unloads and hides the given slide. This is called when the
+	 * slide is moved outside of the configured view distance.
 	 *
 	 * @param {HTMLElement} slide
 	 */
-	function hideSlide( slide ) {
+	function unloadSlide( slide ) {
 
 		// Hide the slide element
 		slide.style.display = 'none';
@@ -21759,6 +22447,18 @@ yUUE5MAdhcAAAAAASUVORK5CYII=" />
 		if( background ) {
 			background.style.display = 'none';
 		}
+
+		// Reset lazy-loaded media elements with src attributes
+		toArray( slide.querySelectorAll( 'video[data-lazy-loaded][src], audio[data-lazy-loaded][src]' ) ).forEach( function( element ) {
+			element.setAttribute( 'data-src', element.getAttribute( 'src' ) );
+			element.removeAttribute( 'src' );
+		} );
+
+		// Reset lazy-loaded media elements with <source> children
+		toArray( slide.querySelectorAll( 'video[data-lazy-loaded] source[src], audio source[src]' ) ).forEach( function( source ) {
+			source.setAttribute( 'data-src', source.getAttribute( 'src' ) );
+			source.removeAttribute( 'src' );
+		} );
 
 	}
 
@@ -21835,17 +22535,25 @@ yUUE5MAdhcAAAAAASUVORK5CYII=" />
 		_appendParamToIframeSource( 'src', 'player.vimeo.com/', 'api=1' );
 		_appendParamToIframeSource( 'data-src', 'player.vimeo.com/', 'api=1' );
 
+		// Always show media controls on mobile devices
+		if( isMobileDevice ) {
+			toArray( dom.slides.querySelectorAll( 'video, audio' ) ).forEach( function( el ) {
+				el.controls = true;
+			} );
+		}
+
 	}
 
 	/**
 	 * Start playback of any embedded content inside of
 	 * the given element.
 	 *
-	 * @param {HTMLElement} slide
+	 * @param {HTMLElement} element
 	 */
 	function startEmbeddedContent( element ) {
 
 		if( element && !isSpeakerNotes() ) {
+
 			// Restart GIFs
 			toArray( element.querySelectorAll( 'img[src$=".gif"]' ) ).forEach( function( el ) {
 				// Setting the same unchanged source like this was confirmed
@@ -21859,8 +22567,25 @@ yUUE5MAdhcAAAAAASUVORK5CYII=" />
 					return;
 				}
 
-				if( el.hasAttribute( 'data-autoplay' ) && typeof el.play === 'function' ) {
-					el.play();
+				// Prefer an explicit global autoplay setting
+				var autoplay = config.autoPlayMedia;
+
+				// If no global setting is available, fall back on the element's
+				// own autoplay setting
+				if( typeof autoplay !== 'boolean' ) {
+					autoplay = el.hasAttribute( 'data-autoplay' ) || !!closestParent( el, '.slide-background' );
+				}
+
+				if( autoplay && typeof el.play === 'function' ) {
+
+					if( el.readyState > 1 ) {
+						startEmbeddedMedia( { target: el } );
+					}
+					else {
+						el.removeEventListener( 'loadeddata', startEmbeddedMedia ); // remove first to avoid dupes
+						el.addEventListener( 'loadeddata', startEmbeddedMedia );
+					}
+
 				}
 			} );
 
@@ -21885,7 +22610,28 @@ yUUE5MAdhcAAAAAASUVORK5CYII=" />
 					el.setAttribute( 'src', el.getAttribute( 'data-src' ) );
 				}
 			} );
+
 		}
+
+	}
+
+	/**
+	 * Starts playing an embedded video/audio element after
+	 * it has finished loading.
+	 *
+	 * @param {object} event
+	 */
+	function startEmbeddedMedia( event ) {
+
+		var isAttachedToDOM = !!closestParent( event.target, 'html' ),
+			isVisible  		= !!closestParent( event.target, '.present' );
+
+		if( isAttachedToDOM && isVisible ) {
+			event.target.currentTime = 0;
+			event.target.play();
+		}
+
+		event.target.removeEventListener( 'loadeddata', startEmbeddedMedia );
 
 	}
 
@@ -21893,7 +22639,7 @@ yUUE5MAdhcAAAAAASUVORK5CYII=" />
 	 * "Starts" the content of an embedded iframe using the
 	 * postMessage API.
 	 *
-	 * @param {object} event - postMessage API event
+	 * @param {object} event
 	 */
 	function startEmbeddedIframe( event ) {
 
@@ -21901,17 +22647,33 @@ yUUE5MAdhcAAAAAASUVORK5CYII=" />
 
 		if( iframe && iframe.contentWindow ) {
 
-			// YouTube postMessage API
-			if( /youtube\.com\/embed\//.test( iframe.getAttribute( 'src' ) ) && iframe.hasAttribute( 'data-autoplay' ) ) {
-				iframe.contentWindow.postMessage( '{"event":"command","func":"playVideo","args":""}', '*' );
-			}
-			// Vimeo postMessage API
-			else if( /player\.vimeo\.com\//.test( iframe.getAttribute( 'src' ) ) && iframe.hasAttribute( 'data-autoplay' ) ) {
-				iframe.contentWindow.postMessage( '{"method":"play"}', '*' );
-			}
-			// Generic postMessage API
-			else {
-				iframe.contentWindow.postMessage( 'slide:start', '*' );
+			var isAttachedToDOM = !!closestParent( event.target, 'html' ),
+				isVisible  		= !!closestParent( event.target, '.present' );
+
+			if( isAttachedToDOM && isVisible ) {
+
+				// Prefer an explicit global autoplay setting
+				var autoplay = config.autoPlayMedia;
+
+				// If no global setting is available, fall back on the element's
+				// own autoplay setting
+				if( typeof autoplay !== 'boolean' ) {
+					autoplay = iframe.hasAttribute( 'data-autoplay' ) || !!closestParent( iframe, '.slide-background' );
+				}
+
+				// YouTube postMessage API
+				if( /youtube\.com\/embed\//.test( iframe.getAttribute( 'src' ) ) && autoplay ) {
+					iframe.contentWindow.postMessage( '{"event":"command","func":"playVideo","args":""}', '*' );
+				}
+				// Vimeo postMessage API
+				else if( /player\.vimeo\.com\//.test( iframe.getAttribute( 'src' ) ) && autoplay ) {
+					iframe.contentWindow.postMessage( '{"method":"play"}', '*' );
+				}
+				// Generic postMessage API
+				else {
+					iframe.contentWindow.postMessage( 'slide:start', '*' );
+				}
+
 			}
 
 		}
@@ -21922,45 +22684,53 @@ yUUE5MAdhcAAAAAASUVORK5CYII=" />
 	 * Stop playback of any embedded content inside of
 	 * the targeted slide.
 	 *
-	 * @param {HTMLElement} slide
+	 * @param {HTMLElement} element
 	 */
-	function stopEmbeddedContent( slide ) {
+	function stopEmbeddedContent( element, options ) {
 
-		if( slide && slide.parentNode ) {
+		options = extend( {
+			// Defaults
+			unloadIframes: true
+		}, options || {} );
+
+		if( element && element.parentNode ) {
 			// HTML5 media elements
-			toArray( slide.querySelectorAll( 'video, audio' ) ).forEach( function( el ) {
+			toArray( element.querySelectorAll( 'video, audio' ) ).forEach( function( el ) {
 				if( !el.hasAttribute( 'data-ignore' ) && typeof el.pause === 'function' ) {
+					el.setAttribute('data-paused-by-reveal', '');
 					el.pause();
 				}
 			} );
 
 			// Generic postMessage API for non-lazy loaded iframes
-			toArray( slide.querySelectorAll( 'iframe' ) ).forEach( function( el ) {
-				el.contentWindow.postMessage( 'slide:stop', '*' );
+			toArray( element.querySelectorAll( 'iframe' ) ).forEach( function( el ) {
+				if( el.contentWindow ) el.contentWindow.postMessage( 'slide:stop', '*' );
 				el.removeEventListener( 'load', startEmbeddedIframe );
 			});
 
 			// YouTube postMessage API
-			toArray( slide.querySelectorAll( 'iframe[src*="youtube.com/embed/"]' ) ).forEach( function( el ) {
-				if( !el.hasAttribute( 'data-ignore' ) && typeof el.contentWindow.postMessage === 'function' ) {
+			toArray( element.querySelectorAll( 'iframe[src*="youtube.com/embed/"]' ) ).forEach( function( el ) {
+				if( !el.hasAttribute( 'data-ignore' ) && el.contentWindow && typeof el.contentWindow.postMessage === 'function' ) {
 					el.contentWindow.postMessage( '{"event":"command","func":"pauseVideo","args":""}', '*' );
 				}
 			});
 
 			// Vimeo postMessage API
-			toArray( slide.querySelectorAll( 'iframe[src*="player.vimeo.com/"]' ) ).forEach( function( el ) {
-				if( !el.hasAttribute( 'data-ignore' ) && typeof el.contentWindow.postMessage === 'function' ) {
+			toArray( element.querySelectorAll( 'iframe[src*="player.vimeo.com/"]' ) ).forEach( function( el ) {
+				if( !el.hasAttribute( 'data-ignore' ) && el.contentWindow && typeof el.contentWindow.postMessage === 'function' ) {
 					el.contentWindow.postMessage( '{"method":"pause"}', '*' );
 				}
 			});
 
-			// Lazy loading iframes
-			toArray( slide.querySelectorAll( 'iframe[data-src]' ) ).forEach( function( el ) {
-				// Only removing the src doesn't actually unload the frame
-				// in all browsers (Firefox) so we set it to blank first
-				el.setAttribute( 'src', 'about:blank' );
-				el.removeAttribute( 'src' );
-			} );
+			if( options.unloadIframes === true ) {
+				// Unload lazy-loaded iframes
+				toArray( element.querySelectorAll( 'iframe[data-src]' ) ).forEach( function( el ) {
+					// Only removing the src doesn't actually unload the frame
+					// in all browsers (Firefox) so we set it to blank first
+					el.setAttribute( 'src', 'about:blank' );
+					el.removeAttribute( 'src' );
+				} );
+			}
 		}
 
 	}
@@ -22199,13 +22969,22 @@ yUUE5MAdhcAAAAAASUVORK5CYII=" />
 	}
 
 	/**
+	 * Retrieves all slides in this presentation.
+	 */
+	function getSlides() {
+
+		return toArray( dom.wrapper.querySelectorAll( SLIDES_SELECTOR + ':not(.stack)' ));
+
+	}
+
+	/**
 	 * Retrieves the total number of slides in this presentation.
 	 *
 	 * @return {number}
 	 */
 	function getTotalSlides() {
 
-		return dom.wrapper.querySelectorAll( SLIDES_SELECTOR + ':not(.stack)' ).length;
+		return getSlides().length;
 
 	}
 
@@ -22239,25 +23018,12 @@ yUUE5MAdhcAAAAAASUVORK5CYII=" />
 	 */
 	function getSlideBackground( x, y ) {
 
-		// When printing to PDF the slide backgrounds are nested
-		// inside of the slides
-		if( isPrintingPDF() ) {
-			var slide = getSlide( x, y );
-			if( slide ) {
-				return slide.slideBackgroundElement;
-			}
-
-			return undefined;
+		var slide = getSlide( x, y );
+		if( slide ) {
+			return slide.slideBackgroundElement;
 		}
 
-		var horizontalBackground = dom.wrapper.querySelectorAll( '.backgrounds>.slide-background' )[ x ];
-		var verticalBackgrounds = horizontalBackground && horizontalBackground.querySelectorAll( '.slide-background' );
-
-		if( verticalBackgrounds && verticalBackgrounds.length && typeof y === 'number' ) {
-			return verticalBackgrounds ? verticalBackgrounds[ y ] : undefined;
-		}
-
-		return horizontalBackground;
+		return undefined;
 
 	}
 
@@ -22519,7 +23285,7 @@ yUUE5MAdhcAAAAAASUVORK5CYII=" />
 
 		cancelAutoSlide();
 
-		if( currentSlide ) {
+		if( currentSlide && config.autoSlide !== false ) {
 
 			var fragment = currentSlide.querySelector( '.current-fragment' );
 
@@ -22552,7 +23318,7 @@ yUUE5MAdhcAAAAAASUVORK5CYII=" />
 			// If there are media elements with data-autoplay,
 			// automatically set the autoSlide duration to the
 			// length of that media. Not applicable if the slide
-			// is divided up into fragments. 
+			// is divided up into fragments.
 			// playbackRate is accounted for in the duration.
 			if( currentSlide.querySelectorAll( '.fragment' ).length === 0 ) {
 				toArray( currentSlide.querySelectorAll( 'video, audio' ) ).forEach( function( el ) {
@@ -22637,6 +23403,8 @@ yUUE5MAdhcAAAAAASUVORK5CYII=" />
 
 	function navigateRight() {
 
+		hasNavigatedRight = true;
+
 		// Reverse for RTL
 		if( config.rtl ) {
 			if( ( isOverview() || previousFragment() === false ) && availableRoutes().right ) {
@@ -22660,6 +23428,8 @@ yUUE5MAdhcAAAAAASUVORK5CYII=" />
 	}
 
 	function navigateDown() {
+
+		hasNavigatedDown = true;
 
 		// Prioritize revealing fragments
 		if( ( isOverview() || nextFragment() === false ) && availableRoutes().down ) {
@@ -22706,6 +23476,9 @@ yUUE5MAdhcAAAAAASUVORK5CYII=" />
 	 * The reverse of #navigatePrev().
 	 */
 	function navigateNext() {
+
+		hasNavigatedRight = true;
+		hasNavigatedDown = true;
 
 		// Prioritize revealing fragments
 		if( nextFragment() === false ) {
@@ -22765,12 +23538,7 @@ yUUE5MAdhcAAAAAASUVORK5CYII=" />
 
 		// Check if the pressed key is question mark
 		if( event.shiftKey && event.charCode === 63 ) {
-			if( dom.overlay ) {
-				closeOverlay();
-			}
-			else {
-				showHelp( true );
-			}
+			toggleHelp();
 		}
 
 	}
@@ -23380,7 +24148,7 @@ yUUE5MAdhcAAAAAASUVORK5CYII=" />
 		this.context.beginPath();
 		this.context.arc( x, y, radius, 0, Math.PI * 2, false );
 		this.context.lineWidth = this.thickness;
-		this.context.strokeStyle = '#666';
+		this.context.strokeStyle = 'rgba( 255, 255, 255, 0.2 )';
 		this.context.stroke();
 
 		if( this.playing ) {
@@ -23468,9 +24236,6 @@ yUUE5MAdhcAAAAAASUVORK5CYII=" />
 		navigatePrev: navigatePrev,
 		navigateNext: navigateNext,
 
-		// Shows a help overlay with keyboard shortcuts
-		showHelp: showHelp,
-
 		// Forces an update in slide layout
 		layout: layout,
 
@@ -23482,6 +24247,9 @@ yUUE5MAdhcAAAAAASUVORK5CYII=" />
 
 		// Returns an object with the available fragments as booleans (prev/next)
 		availableFragments: availableFragments,
+
+		// Toggles a help overlay with keyboard shortcuts
+		toggleHelp: toggleHelp,
 
 		// Toggles the overview mode on/off
 		toggleOverview: toggleOverview,
@@ -23496,6 +24264,11 @@ yUUE5MAdhcAAAAAASUVORK5CYII=" />
 		isOverview: isOverview,
 		isPaused: isPaused,
 		isAutoSliding: isAutoSliding,
+		isSpeakerNotes: isSpeakerNotes,
+
+		// Slide preloading
+		loadSlide: loadSlide,
+		unloadSlide: unloadSlide,
 
 		// Adds or removes all internal event listeners (such as keyboard)
 		addEventListeners: addEventListeners,
@@ -23505,12 +24278,19 @@ yUUE5MAdhcAAAAAASUVORK5CYII=" />
 		getState: getState,
 		setState: setState,
 
+		// Presentation progress
+		getSlidePastCount: getSlidePastCount,
+
 		// Presentation progress on range of 0-1
 		getProgress: getProgress,
 
 		// Returns the indices of the current, or specified, slide
 		getIndices: getIndices,
 
+		// Returns an Array of all slides
+		getSlides: getSlides,
+
+		// Returns the total number of slides
 		getTotalSlides: getTotalSlides,
 
 		// Returns the slide element at the specified index
