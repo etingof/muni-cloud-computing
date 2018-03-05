@@ -72,6 +72,7 @@
 * How did virtualization work before 2005?
 #+ATTR_REVEAL: :frag (appear)
  - Well, sloooowly...
+ - Basing on 80386 CPU features
 
 * Is it cloud already?
 #+ATTR_REVEAL: :frag (appear)
@@ -163,7 +164,7 @@
  - High-level VM lifecycle abstraction
  - Cloud services: networks, storage...
 
-* Virtualization management
+* Cloud services
 #+ATTR_REVEAL: :frag (appear)
  - OS image deployment
  - Centralized OS configuration
@@ -173,7 +174,7 @@
  - Centralized storage
  - User interface
 
-* Examples of virtualization managers
+* Examples of virtualization software
 #+ATTR_REVEAL: :frag (appear)
  - libvirt
  - oVirt
@@ -216,7 +217,7 @@
  - Hypervisors spawn VMs
  - Containers isolates apps to namespaces
 
-* Example containers
+* Example container software
 #+ATTR_REVEAL: :frag (appear)
  - Docker
  - LXC
@@ -245,7 +246,7 @@
  4. Gameframes, since 2007
  5. Intel VT-x, AMD-V, since 2005
 
-* Recap: technologies relevant to virtualization?
+* Recap: virtualization technologies?
 #+ATTR_REVEAL: :frag (appear)
 
  1. Multi-tasking
