@@ -64,6 +64,7 @@
 
 * What exactly is virtualization?
 #+ATTR_REVEAL: :frag (appear)
+ - Multi-programming vs multi-tasking
  - Multi-threading vs multi-tasking vs virtualization?
  - Containers vs OS virtualization
  - CPUs: Multi-core vs Hyper-threading
@@ -82,27 +83,18 @@
  - Hypervisors
  - Virtualization management and services
 
-* Cloud features
-#+ATTR_REVEAL: :frag (appear)
- -  Easy provisioning and configuration
- -  Movable resource: snapshot/backup
- -  Consolidation of resources: scale up/down
-
-** Cloud features
-#+ATTR_REVEAL: :frag (appear)
- -  Isolation from host HW and OS
- -  Virtual vs Physical machine monitoring
- -  Easier testing and evaluation
- -  Duplication of environments
-
 * Hypervisors
 #+ATTR_REVEAL: :frag (appear)
  - Native or bare-metal
  - Hosted
- - Full or para-virtualization
 
 ** Hypervisors
 [[./hyperviseur.png]]
+
+* Full or para-virtualization
+#+ATTR_REVEAL: :frag (appear)
+ - Full: unmodified OS on top of hypervisor
+ - Para: modified OS calls hypervisor API
 
 * Examples of native hypervisors
 #+ATTR_REVEAL: :frag (appear)
@@ -161,7 +153,7 @@
 #+ATTR_REVEAL: :frag (appear)
  - Why?
 
-** Why it's called Hypervisor?
+** Why is it called Hypervisor?
 #+ATTR_REVEAL: :frag (appear)
  - What's behind the name?
 
@@ -171,10 +163,15 @@
  - High-level VM lifecycle abstraction
  - Cloud services: networks, storage...
 
-* Cloud services
+* Virtualization management
 #+ATTR_REVEAL: :frag (appear)
+ - OS image deployment
+ - Centralized OS configuration
  - Automated network configuration
-
+ - Instance backup/snapshot/migration
+ - Centralized user authentication
+ - Centralized storage
+ - User interface
 
 * Examples of virtualization managers
 #+ATTR_REVEAL: :frag (appear)
@@ -195,18 +192,18 @@
 
 * oVirt
 #+ATTR_REVEAL: :frag (appear)
- -  virtualization management platform
- -  on top of KVM
- -  upstream for RHV
- -  engine
- -  node
- -  VDSM - virtual desktop and server manager
+ - Virtualization management platform
+ - On top of KVM
+ - Upstream for RHV
+ - Engine
+ - Node
+ - VDSM - virtual desktop and server manager
 
 * OpenStack
 #+ATTR_REVEAL: :frag (appear)
- - software platform for cloud computing
- - started in 2010 by Rackspace and NASA
- - in 2012 founded OpenStack Foundation
+ - Software platform for cloud computing
+ - Started in 2010 by Rackspace and NASA
+ - In 2012 founded OpenStack Foundation
 
 * OpenStack
 [[./openstack.jpg]]
@@ -226,6 +223,19 @@
  - OpenVZ
  - chroot
 
+* Cloud features
+#+ATTR_REVEAL: :frag (appear)
+ -  Easy provisioning and configuration
+ -  Movable resource: snapshot/backup/live migration
+ -  Consolidation of resources: scale up/down
+
+** Cloud features
+#+ATTR_REVEAL: :frag (appear)
+ -  Isolation from host HW and OS
+ -  Virtual vs Physical machine monitoring
+ -  Easier testing and evaluation
+ -  Duplication of environments
+
 * Recap: the age of virtualization?
 #+ATTR_REVEAL: :frag (appear)
 
@@ -244,6 +254,7 @@
  4. Hyper-threading CPU
  5. Multi-core CPU
  6. Intel VT-x, AMD-V
+ 7. Multi-programming
 
 * Recap: hypervisor types?
 #+ATTR_REVEAL: :frag (appear)
@@ -257,11 +268,11 @@
 * Recap: what makes up a cloud?
 #+ATTR_REVEAL: :frag (appear)
 
- 1. one hypervisor
- 2. one or more hypervisors
- 3. baremetal computers
- 4. baremetal switches and routers
- 5. networking service
+ 1. One hypervisor
+ 2. One or more hypervisors
+ 3. Baremetal computers
+ 4. Baremetal switches and routers
+ 5. Networking service
 
 * Recap: virtualization vs containers?
 #+ATTR_REVEAL: :frag (appear)
