@@ -1,6 +1,6 @@
 #+TITLE: PA200 - Cloud Computing Concepts
-#+AUTHOR: Petr Blaho
-#+EMAIL: pblaho@redhat.com
+#+AUTHOR: Petr Blaho, Ilya Etingof
+#+EMAIL: pblaho@redhat.com, ietingof@redhat.com
 #+REVEAL_HLEVEL: 3
 #+REVEAL_THEME: solarized
 #+OPTIONS: num:nil toc:nil
