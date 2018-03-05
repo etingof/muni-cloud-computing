@@ -44,10 +44,12 @@
 
 * Cloud deployment models
 #+ATTR_REVEAL: :frag (appear)
- - Public Cloud
- - Private Cloud
- - Hybrid Cloud
- - Community Cloud
+ 1. Public Cloud
+ 2. Private Cloud
+ 3. Hybrid Cloud
+ 4. Personal Cloud
+ 5. Community Cloud
+ 6. Enterprise Cloud
 
 * History of virtualization
 #+ATTR_REVEAL: :frag (appear)
@@ -62,9 +64,9 @@
 
 * What exactly is virtualization?
 #+ATTR_REVEAL: :frag (appear)
- - Multi-tasking vs multi-threading vs virtualization?
- - CPUs: Multi-core vs Hyper-threading
+ - Multi-threading vs multi-tasking vs virtualization?
  - Containers vs OS virtualization
+ - CPUs: Multi-core vs Hyper-threading
 
 * How did virtualization work before 2005?
 #+ATTR_REVEAL: :frag (appear)
@@ -82,24 +84,22 @@
 
 * Cloud features
 #+ATTR_REVEAL: :frag (appear)
- -  Consolidation of resources
- -  Hardware isolation
- -  Virtual vs Physical machine monitoring
- -  Easy provisioning and repair
- -  Movable resource
+ -  Easy provisioning and configuration
+ -  Movable resource: snapshot/backup
+ -  Consolidation of resources: scale up/down
 
 ** Cloud features
 #+ATTR_REVEAL: :frag (appear)
- -  Recoverable
+ -  Isolation from host HW and OS
+ -  Virtual vs Physical machine monitoring
  -  Easier testing and evaluation
  -  Duplication of environments
- -  Isolation from host HW and OS
 
 * Hypervisors
 #+ATTR_REVEAL: :frag (appear)
- - native or bare-metal
- - hosted
- - full or para-virtualization
+ - Native or bare-metal
+ - Hosted
+ - Full or para-virtualization
 
 ** Hypervisors
 [[./hyperviseur.png]]
@@ -160,6 +160,10 @@
 * Para-virtualization
 #+ATTR_REVEAL: :frag (appear)
  - Why?
+
+** Why it's called Hypervisor?
+#+ATTR_REVEAL: :frag (appear)
+ - What's behind the name?
 
 * Virtualization management
 #+ATTR_REVEAL: :frag (appear)
