@@ -67,15 +67,34 @@ The concepts of virtualization have not been researched and tried until late
 sixties within the CP-40 project that eventually resulted in the first real
 and full virtualization support which appeared in IBM S/370-67 in 1966.
 
+The major driving factor behind time-sharing system development was that,
+with batch processing, waiting for I/O was inefficient and program had to
+wait for the queue before the programmer can get a failure.
+
+Interestingly, it is the rise of the time-sharing concept that gave birth to
+the computer security concerns.
+
 Although the time-sharing technology was lost out to batch-processing
 architecture in political battle of the time.
 
-Many companies were coming up with niche products offering virtualization
-features. But they were not hugely practical (due to complexity and low
-performance)) till around 2005 when PC CPU vendors introduced new CPU
-instructions supporting virtualization - the Intel VT-x and AMD-V CPUs.
+In in PC world, the motivation for time-sharing features was not
+significant because PC CPUs were cheap enough to allocate to a single
+person.
 
-By this moment clouds have begun to form...
+Many companies were coming up with desktop products offering virtualization
+features. But they were not hugely practical (due to complexity and low
+performance).
+
+However the rise of the Internet brought the emergence of huge farms of
+servers running applications like web sites. The load pattern of those
+was apparently similarly bursty as with mainframes and terminals.
+So running many different applications in parallel on the same system
+made more sense again.
+
+Around 2005 when PC CPU vendors introduced new CPU instructions supporting
+virtualization - the Intel VT-x and AMD-V CPUs.
+
+By this moment practical virtualization has become possible.
 
 What exactly is virtualization?
 ===============================
@@ -89,6 +108,10 @@ flows in parallel.
 Multi-tasking: OS gives each task (process) the impression that it is the only
 one running on the system and has full access to the system resources
 (memory, I/O). The crucial HW component for VM to work is MMU.
+
+Fun fact: at the batch-processing times, the alternative to multi-tasking was
+multi-programming -- the dynamic queue of tasks that get off the CPU when
+being blocked on I/O.
 
 Virtualization: each instance of the OS has the impression that it is the
 only OS running on the CPU/system and have full access to the system
@@ -133,39 +156,6 @@ if the term was not already allocated for the operating system (which
 supervises the resources and the tasks). Thus, hypervisor which supervises
 tenant operating systems.
 
-Cloud features
-==============
-
-The virtual machines can be created different (in part of their "hardware"
-capabilities) to reflect OS/application requirements on the hardware.
-
-It is very easy to unroll a new machine and install OS onto it. It can be
-done fully remotely and without human intervention.
-
-Moreover, the virtual machines can be copied (or cloned) thus creating virtual
-computers that are exactly the same from their capabilities perspective as
-well as the OS and apps running inside.
-
-Once you have your virtual machine at rest, you can easily back it up
-entirely. It can be just an application backup or it can also include the
-entire memory and the state of the whole virtual machine. That can be used
-for live migration of a running virtual machine.
-
-That paves the ground for scaling up/down the computing resources at the
-runtime, moving virtual machines across the data centers or geographical
-locations.
-
-The OS running inside virtual machine does not normally see the real
-hardware of the host computer. Instead it is presented with some generic
-virtual hardware which is mapped to the real hardware so the API of the
-virtual hardware never changes. That makes it easier from OS maintenance
-perspective as well as it easies the migration of the virtual machines
-from one hardware to another.
-
-If you are in software development or testing, the ability to make a copy of
-potentially complicated gold-standard environment to re-use it later could
-be a very powerful feature.
-
 Hypervisors
 ===========
 
@@ -173,11 +163,6 @@ A hypervisor is a software that creates and runs virtual machines.
 
 A computer on which a hypervisor runs one or more virtual machines is called
 a host machine, and each virtual machine is called a guest machine.
-
-Multiple instances of a variety of operating systems may share the
-virtualized hardware resources. This contrasts with operating-system-level
-virtualization, where all instances (e.g. containers) must share a single
-kernel.
 
 There exists two types of hypervisors:
 
@@ -268,3 +253,36 @@ OpenStack is designed as an open-ended collection of web-services interacting
 with each other to implement the workflow of VM lifecycle.
 
 We will look into OpenStack at depth down this course.
+
+Cloud features
+==============
+
+The virtual machines can be created different (in part of their "hardware"
+capabilities) to reflect OS/application requirements on the hardware.
+
+It is very easy to unroll a new machine and install OS onto it. It can be
+done fully remotely and without human intervention.
+
+Moreover, the virtual machines can be copied (or cloned) thus creating virtual
+computers that are exactly the same, from their capabilities perspective as
+well as the OS and apps running inside.
+
+Once you have your virtual machine at rest, you can easily back it up
+entirely. It can be just an application backup or it can also include the
+entire memory and the state of the whole virtual machine. That can be used
+for live migration of a running virtual machine.
+
+That paves the ground for scaling up/down the computing resources at the
+runtime, moving virtual machines across the data centers or geographical
+locations.
+
+The OS running inside virtual machine does not normally see the real
+hardware of the host computer. Instead it is presented with some generic
+virtual hardware which is mapped to the real hardware so the API of the
+virtual hardware never changes. That makes it easier from OS maintenance
+perspective as well as it easies the migration of the virtual machines
+from one hardware to another.
+
+If you are in software development or testing, the ability to make a copy of
+potentially complicated gold-standard environment to re-use it later could
+be a very powerful feature.
