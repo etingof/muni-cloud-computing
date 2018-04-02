@@ -1,6 +1,6 @@
 #+TITLE: PA200 - OpenStack - Technical Insight
-#+AUTHOR: Petr Blaho
-#+EMAIL: pblaho@redhat.com
+#+AUTHOR: Petr Blaho, Ilya Etingof
+#+EMAIL: pblaho@redhat.com, ietingof@redhat.com
 #+LaTeX_CLASS: beamer
 #+BEAMER_FRAME_LEVEL: 2
 #+REVEAL_HLEVEL: 3
@@ -9,160 +9,263 @@
 #+OPTIONS: reveal_single_file:t
 
 * OpenStack Overview
-** Schema
+
+* Lecture plan
+#+ATTR_REVEAL: :frag (appear)
+ - Warm-up
+ - VM deploy demo
+ - OpenStack key components
+ - OpenStack VM deploy workflow
+ - OpenStack service structure
+ - OpenStack contribution model
+
+* Morning exercise
+#+ATTR_REVEAL: :frag (appear)
+
+* Why cloud computing?
+#+ATTR_REVEAL: :frag (appear)
+ 1. To improve the utilization of computer resources
+ 2. To improve information security
+ 3. To boost network performance
+ 4. To improve service reliability
+ 5. To achieve service elasticity
+
+* OpenStack service model?
+#+ATTR_REVEAL: :frag (appear)
+ 1. Software as a Service
+ 2. Application as a Service
+ 3. Platform as a Service
+ 4. Infrastructure as a Service
+ 5. Computing as a Service
+
+* OpenStack is a:
+#+ATTR_REVEAL: :frag (appear)
+ 1. Google software
+ 2. Service of Amazon
+ 3. Microsoft solution
+ 4. Red Hat subscription service
+ 5. Community effort
+
+* OpenStack major competitors
+#+ATTR_REVEAL: :frag (appear)
+ 1. Amazon Web Services
+ 2. IBM BlueMix
+ 3. Google Compute
+ 4. Microsoft Azure
+ 5. In-house cloud management solutions
+ 6. None of the above
+
+* OpenStack consumption model
+#+ATTR_REVEAL: :frag (appear)
+ 1. License from the OpenStack Foundation
+ 2. Commercial Red Hat subscription
+ 3. Official certification from Mirantis
+ 4. None of the above
+
+* Deploy a VM with OpenStack
+#+ATTR_REVEAL: :frag (appear)
+ - Request & launch a VM
+ - Log into the VM
+ - Destroy the VM
+
+* Demo: request & launch a VM
+#+ATTR_REVEAL: :frag (appear)
+
+ - Choose VM configuration
+ - Choose OS to install on the VM
+ - Create the VM, boot the OS
+ - Log into VM and use it somehow
+ - Tier down the VM
+
+* Demo: Choose VM configuration
+#+ATTR_REVEAL: :frag (appear)
+
+$ openstack flavor list
++----+-----------+-----------+------+-----------+------+-------+-------------+
+| ID |    Name   | Memory_MB | Disk | Ephemeral | Swap | VCPUs | RXTX_Factor |
++----+-----------+-----------+------+-----------+------+-------+-------------+
+| 1  | m1.tiny   | 512       | 0    | 0         |      | 1     | 1.0         |
+| 2  | m1.small  | 2048      | 10   | 20        |      | 1     | 1.0         |
+| 3  | m1.medium | 4096      | 10   | 40        |      | 2     | 1.0         |
+| 4  | m1.large  | 8192      | 10   | 80        |      | 4     | 1.0         |
+| 5  | m1.xlarge | 16384     | 10   | 160       |      | 8     | 1.0         |
++----+-----------+-----------+------+-----------+------+-------+-------------+
+
+* Demo: Choose OS image
+#+ATTR_REVEAL: :frag (appear)
+
+$ openstack image list
++--------------------------------------+--------------+--------+
+| ID                                   | Name         | Status |
++--------------------------------------+--------------+--------+
+| afa49adf-2831-4a00-9c57-afe1624d5557 | CentOS-6     | active |
+| 842c207f-6964-4ed7-a41a-06ec66a7c954 | Ubuntu-14    | active |
+| 30a2a55a-2045-4ed8-a605-2d1c1143edd3 | Ubuntu-16    | active |
+| 713f2fbc-05c5-491b-9e02-e000861e7b30 | Fedora-24    | active |
+| 5cb9c233-5867-4e47-80a1-9d774f800444 | Debian-7     | active |
+| f84868a5-5261-404a-9c54-ec317ea16b94 | CentOS-7     | active |
+| b105ad3b-7df8-4318-9c3d-4e4fa4cc4563 | Debian-8     | active |
+| b67b74bc-c3a8-4087-9c28-de02161fdedd | CoreOS       | active |
++--------------------------------------+--------------+--------+
+
+* Demo: Create VM & boot OS
+#+ATTR_REVEAL: :frag (appear)
+
+$ openstack server create --flavor m1.small --key-name mykey \
+    --network mynetwork --image CentOS-7 mycentos
++------------------------+--------------------------------------+
+|        Property        |                Value                 |
++------------------------+--------------------------------------+
+...
+| id                     | 0e4011a4-3128-4674-ab16-dd1b7ecc126e |
+| status                 | BUILD                                |
++------------------------+--------------------------------------+
+
+* Demo: List running VMs
+#+ATTR_REVEAL: :frag (appear)
+
+$ openstack server list
++--------------------------------------+--------------+--------+------------------------------------------------+
+| ID                                   | Name         | Status | Networks               | Image    | Flavor     |
++--------------------------------------+--------------+--------+------------------------+----------+------------+
+| 76b3adb3-1f5a-4276-8b82-abdf21352946 | mycentos     | ACTIVE | mynetwork=192.168.1.23 | CentOS-7 | m1.small   |
+| 246e50b8-29fa-4310-b972-a71cd0df43bf | Ubuntu14     | ACTIVE | mynetwork=192.168.1.98 | Ubuntu-14| m1.large   |
++--------------------------------------+--------------+--------+------------------------+----------+------------+
+
+* Demo: Log into VM
+#+ATTR_REVEAL: :frag (appear)
+
+$ ssh centos@192.168.1.23
+mycentos $
+
+* Demo: Tier down VM
+#+ATTR_REVEAL: :frag (appear)
+
+$ openstack server delete mycentos
+
+* Orchestration: Heat
+#+ATTR_REVEAL: :frag (appear)
+ - Stacks up the resources
+ - Using declarative language (YAML)
+ - Heat engine executes the template
+
+* Orchestration: Heat templates
+#+ATTR_REVEAL: :frag (appear)
+
+resources:
+  instance:
+    type: OS::Nova::Server
+    properties:
+      flavor: m1.small
+      image: ubuntu-trusty-x86_64
+      networks:
+        - network: private
+
+* Orchestration: Heat
+#+ATTR_REVEAL: :frag (appear)
+
+$ openstack stack create -t teststack.yaml teststack
++--------+----------------+--------------------+----------------------+
+| id     | stack_name     | stack_status       | creation_time        |
++--------+----------------+--------------------+----------------------+
+| ...    | teststack      | CREATE_IN_PROGRESS | 2018-03-05T18:10:40Z |
++--------+----------------+--------------------+----------------------+
+
+* OpenStack design
+#+ATTR_REVEAL: :frag (appear)
+ - A collection of loosely coupled services
+ - Interacting over REST APIs
+ - Using well-defined protocols
+ - Each service is a project backed by a team
+
+* OpenStack key services
+#+ATTR_REVEAL: :frag (appear)
+ - Compute service - Nova
+ - Network service - Neutron
+ - Image service - Glance
+ - Object Storage service - Swift
+ - Identity service - Keystone
+
+** OpenStack key services
    [[./openstack.jpg]]
-** Conceptual Schema
+
+* VM deployment workflow
+#+ATTR_REVEAL: :frag (appear)
+ - Heat engine executes a template
+ - Nova schedules VM creation
+ - Nova asks Glance for image
+ - Glance asks Swift for image contents
+ - Heat asks Cinder for volume
+ - Nova asks Neutron for network
+
+** VM deployment workflow
    #+ATTR_HTML: :height 550px
    [[./openstack-conceptual-arch-kilo.png]]
-** Logical Schema
+
+** VM deployment workflow
    #+ATTR_HTML: :height 550px
    [[./openstack-logical-arch-kilo.png]]
-* OpenStack Components (Projects)
-** Identity (Keystone)
-   #+ATTR_REVEAL: :frag (appear)
-   - manages users, projects, domains, roles, groups
-   - authorization scopes - unscoped, project, domain
-   - role-based access control (RBAC)
-   #+BEGIN_SRC
-   "identity:create_user": "role:admin and domain_id:%(user.domain_id)s"
-   #+END_SRC
-** Dashboard (Horizon)
-   #+ATTR_REVEAL: :frag (appear)
-   - web UI
-   - allow to manage:
-   - users, groups, roles, projects
-   - instances, images, volumes
-   - quotas, cloud resources, ...
-** Compute (Nova)
-*** Hypervisors
-    #+ATTR_REVEAL: :frag (appear)
-    - Baremetal
-    - Docker
-    - Hyper-V
-    - Kernel-based Virtual Machine (KVM)
-    - Linux Containers (LXC)
-    - Quick Emulator (QEMU)
-    - User Mode Linux (UML)
-    - VMware vSphere
-    - Xen
-    - Feature matrix - [[https://docs.openstack.org/developer/nova/support-matrix.html]]
-*** Services
-    #+ATTR_REVEAL: :frag (appear)
-    - nova-api service - API endpoints
-    - nova-api-metadata service - metadata about instances
-    - nova-compute service - talks with hypervisors via XenAPI, libvirt, VMWareAPI
-    - nova-placement-api service - tracks resource provider inventories and usages
-    - nova-scheduler service - decides on which compute host will instance be run
-    - nova-conductor module - mediator between nova-compute and database
-*** Services cont.
-    #+ATTR_REVEAL: :frag (appear)
-    - nova-consoleauth daemon - authorizes tokens for console proxies users
-    - nova-novncproxy, nova-spicehtml5proxy, nova-xvpvncproxy daemons
-*** Queue
-    #+ATTR_REVEAL: :frag (appear)
-    - central hub for messaging
-    - RabbitMQ
-    - ZeroMQ
-    - another AMQP
-*** SQL database
-    #+ATTR_REVEAL: :frag (appear)
-    - store build-time and run-time states, like:
-    - available instance types
-    - instances in use
-    - available networks
-    - projects
-    - any DB supported by SQLAlchemy
-    - SQLite3, MySQL, MariaDB, PostgreSQL
-** Object Storage (Swift)
-*** Characteristics
-    #+ATTR_REVEAL: :frag (appear)
-    - objects have URL
-    - objects are 3x replicated over zones (group of drives, node, rack)
-    - objects have metadata
-    - RESTful HTTP API
-    - objects can be anywhere in the cluster
-    - cluster scales in a linear way by adding nodes without downtime
-*** Components
-    #+ATTR_REVEAL: :frag (appear)
-    - proxy servers - handle incoming API requests
-    - rings - map logical names of data to locations on particular disks
-    - zones - isolate data from other zones
-    - account and containers - Account -> Containers -> Objects
-    - objects - data
-    - partitions - stores objects, account and container dbs, help manage locations where data lives
-*** Schema
-    [[./objectstorage-buildingblocks.png]]
-** Block Storage (Cinder)
-*** Backends
-    #+ATTR_REVEAL: :frag (appear)
-   - default implementation uses LVM
-   - NFS
-   - GlusterFS
-   - others
-*** Features
-    #+ATTR_REVEAL: :frag (appear)
-    - volumes and snapshots management
-    - migrating volumes
-    - bandwidth limiting for volume copying
-    - oversubscription
-    - expose backend specific capabilities
-** Networking (Neutron)
-*** Features
-    #+ATTR_REVEAL: :frag (appear)
-    - Layer 2 - networks, ports, segments
-    - Layer 3 - floating IPs, routers, subnets
-    - Services - LBaaS, FWaaS, VPNaaS
-*** Architecture
-    #+ATTR_REVEAL: :frag (appear)
-    - neutron-*-agent - run on each hypervisor
-    - neutron-dhcp-agent - DHCP
-    - neutron-l3-agent - L3/NAT forwarding to provide external network access to VMs
-    - neutron-metering-agent - L3 traffic metering
-** Image Service (Glance)
-   #+ATTR_REVEAL: :frag (appear)
-   - stores disk and server images for instances to boot from
-   - can use Cinder as backend
-** Telemetry (Ceilometer)
-*** Features
-    #+ATTR_REVEAL: :frag (appear)
-    - aodh - alarms
-    - gnocchi - measurements - [[https://docs.openstack.org/admin-guide/telemetry-measurements.html]]
-    - panko - events
-    - data retrieval - query language to get data and statistics
-    - data pipelines - processes data before published
-*** Architecture
-    #+ATTR_REVEAL: :frag (appear)
-    - backends:
-    - measurements - gnocchi
-    - alarms - MySQL, PostgreSQL
-    - events - ElasticSearch, MongoDB, MySQL, PostgreSQL, HBase
-    - hypervisors: libvirt, Hyper-V, XEN, VMWare vSphere
-    - networking: OpenStack, SDN - OpenDaylight, OpenContrail
-** Orchestration (Heat)
-    #+ATTR_REVEAL: :frag (appear)
-   - orchestrating clouds
-   - automatically configures resources
-   - deploys resources
-** Bare-Metal Provisioning (Ironic)
-   #+ATTR_REVEAL: :frag (appear)
-   - provides bare metal machines instead of VM
-   - uses PXE and agent to deploy
-** Database (Trove)
-    #+ATTR_REVEAL: :frag (appear)
-    - MySQL, MongoDB, Cassandra
-** other
-    #+ATTR_REVEAL: :frag (appear)
-   - Elastic Map Reduce (Sahara)
-   - Messaging Service (Zaqar)
-   - Shared Filesystems (Manila)
-   - DNS Service (Designate)
-   - Key Management (Barbican)
-   - Containers (Magnum)
-   - Application Catalog (Murano)
-   - Governance (Congress)
-* OpenStack Clients (CLI, python, web UI)
-  - demo
-* OpenStack Contribution
-    #+ATTR_REVEAL: :frag (appear)
+
+* OpenStack service structure
+#+ATTR_REVEAL: :frag (appear)
+  - Message queue
+  - Persistent database
+  - REST API service
+  - Service engine
+  - Remote agent
+
+* Other OpenStack services
+#+ATTR_REVEAL: :frag (appear)
+ - Orchestration - Heat
+ - Baremetal provisioning - Ironic
+ - Non/relational database service - Trove
+ - Dashboard - Horison
+ - Block Storage - Cinder
+ - Telemetry - Ceilometer
+
+* More OpenStack services
+#+ATTR_REVEAL: :frag (appear)
+ - Elastic Map Reduce - Sahara
+ - Messaging Service - Zaqar
+ - Shared Filesystems - Manila
+ - DNS Service - Designate
+ - Key Management - Barbican
+ - Containers - Magnum
+ - Application Catalog - Murano
+ - Governance - Congress
+
+* OpenStack governance
+#+ATTR_REVEAL: :frag (appear)
+ - Open source
+ - Open community
+ - Open design
+ - Open development
+
+* Open source
+#+ATTR_REVEAL: :frag (appear)
+ - Fully functional, no vendor-specifics
+ - Apache 2.0 License
+
+* Open community
+#+ATTR_REVEAL: :frag (appear)
+ - Public meetings on IRC
+ - Mailing lists, bugs on Launchpad and Storyboard
+ - Elected Project Team Lead
+ - Elected Technical Committee
+
+* Open design
+#+ATTR_REVEAL: :frag (appear)
+ - OpenStack Summit
+ - OpenStack Forum
+ - Project Team Gatherings
+
+* Open development
+#+ATTR_REVEAL: :frag (appear)
+ - Code contributions - https://review.openstack.org/
+ - Project Team Lead
+ - Core Reviewers
+ - Specifications - https://specs.openstack.org/
+
+* Questions?
+#+ATTR_REVEAL: :frag (appear)
   - https://www.openstack.org/
-  - [[https://review.openstack.org/]]
