@@ -1,10 +1,10 @@
 #+TITLE: PA200 - OpenStack - Technical Insight
 #+AUTHOR: Petr Blaho, Ilya Etingof
 #+EMAIL: pblaho@redhat.com, ietingof@redhat.com
-#+LaTeX_CLASS: beamer
-#+BEAMER_FRAME_LEVEL: 2
 #+REVEAL_HLEVEL: 3
 #+REVEAL_THEME: solarized
+#+REVEAL_EXTRA_CSS: pa-200.css
+#+REVEAL_PLUGINS: (highlight)
 #+OPTIONS: num:nil toc:nil
 #+OPTIONS: reveal_single_file:t
 
@@ -70,7 +70,6 @@
 
 * Demo: request & launch a VM
 #+ATTR_REVEAL: :frag (appear)
-
  - Choose VM configuration
  - Choose OS to install on the VM
  - Create the VM, boot the OS
@@ -79,8 +78,12 @@
 
 * Demo: Choose VM configuration
 #+ATTR_REVEAL: :frag (appear)
-
+#+BEGIN_SRC sh
 $ openstack flavor list
+#+END_SRC
+
+#+ATTR_REVEAL: :frag (appear)
+#+BEGIN_SRC sh
 +----+-----------+-----------+------+-----------+------+-------+-------------+
 | ID |    Name   | Memory_MB | Disk | Ephemeral | Swap | VCPUs | RXTX_Factor |
 +----+-----------+-----------+------+-----------+------+-------+-------------+
@@ -90,11 +93,16 @@ $ openstack flavor list
 | 4  | m1.large  | 8192      | 10   | 80        |      | 4     | 1.0         |
 | 5  | m1.xlarge | 16384     | 10   | 160       |      | 8     | 1.0         |
 +----+-----------+-----------+------+-----------+------+-------+-------------+
+#+END_SRC
 
 * Demo: Choose OS image
 #+ATTR_REVEAL: :frag (appear)
-
+#+BEGIN_SRC sh
 $ openstack image list
+#+END_SRC
+
+#+ATTR_REVEAL: :frag (appear)
+#+BEGIN_SRC sh
 +--------------------------------------+--------------+--------+
 | ID                                   | Name         | Status |
 +--------------------------------------+--------------+--------+
@@ -107,12 +115,17 @@ $ openstack image list
 | b105ad3b-7df8-4318-9c3d-4e4fa4cc4563 | Debian-8     | active |
 | b67b74bc-c3a8-4087-9c28-de02161fdedd | CoreOS       | active |
 +--------------------------------------+--------------+--------+
+#+END_SRC
 
 * Demo: Create VM & boot OS
 #+ATTR_REVEAL: :frag (appear)
-
+#+BEGIN_SRC sh
 $ openstack server create --flavor m1.small --key-name mykey \
     --network mynetwork --image CentOS-7 mycentos
+#+END_SRC
+
+#+ATTR_REVEAL: :frag (appear)
+#+BEGIN_SRC sh
 +------------------------+--------------------------------------+
 |        Property        |                Value                 |
 +------------------------+--------------------------------------+
@@ -120,28 +133,40 @@ $ openstack server create --flavor m1.small --key-name mykey \
 | id                     | 0e4011a4-3128-4674-ab16-dd1b7ecc126e |
 | status                 | BUILD                                |
 +------------------------+--------------------------------------+
+#+END_SRC
 
 * Demo: List running VMs
 #+ATTR_REVEAL: :frag (appear)
-
+#+BEGIN_SRC sh
 $ openstack server list
+#+END_SRC
+
+#+ATTR_REVEAL: :frag (appear)
+#+BEGIN_SRC sh
 +--------------------------------------+--------------+--------+------------------------------------------------+
 | ID                                   | Name         | Status | Networks               | Image    | Flavor     |
 +--------------------------------------+--------------+--------+------------------------+----------+------------+
 | 76b3adb3-1f5a-4276-8b82-abdf21352946 | mycentos     | ACTIVE | mynetwork=192.168.1.23 | CentOS-7 | m1.small   |
 | 246e50b8-29fa-4310-b972-a71cd0df43bf | Ubuntu14     | ACTIVE | mynetwork=192.168.1.98 | Ubuntu-14| m1.large   |
 +--------------------------------------+--------------+--------+------------------------+----------+------------+
+#+END_SRC
 
 * Demo: Log into VM
 #+ATTR_REVEAL: :frag (appear)
-
+#+BEGIN_SRC sh
 $ ssh centos@192.168.1.23
+#+END_SRC
+
+#+ATTR_REVEAL: :frag (appear)
+#+BEGIN_SRC sh
 mycentos $
+#+END_SRC
 
 * Demo: Tier down VM
 #+ATTR_REVEAL: :frag (appear)
-
+#+BEGIN_SRC sh
 $ openstack server delete mycentos
+#+END_SRC
 
 * Orchestration: Heat
 #+ATTR_REVEAL: :frag (appear)
@@ -151,7 +176,7 @@ $ openstack server delete mycentos
 
 * Orchestration: Heat templates
 #+ATTR_REVEAL: :frag (appear)
-
+#+BEGIN_SRC yaml
 resources:
   instance:
     type: OS::Nova::Server
@@ -160,16 +185,22 @@ resources:
       image: ubuntu-trusty-x86_64
       networks:
         - network: private
+#+END_SRC
 
 * Orchestration: Heat
 #+ATTR_REVEAL: :frag (appear)
-
+#+BEGIN_SRC sh
 $ openstack stack create -t teststack.yaml teststack
+#+END_SRC
+
+#+ATTR_REVEAL: :frag (appear)
+#+BEGIN_SRC sh
 +--------+----------------+--------------------+----------------------+
 | id     | stack_name     | stack_status       | creation_time        |
 +--------+----------------+--------------------+----------------------+
 | ...    | teststack      | CREATE_IN_PROGRESS | 2018-03-05T18:10:40Z |
 +--------+----------------+--------------------+----------------------+
+#+END_SRC
 
 * OpenStack design
 #+ATTR_REVEAL: :frag (appear)
