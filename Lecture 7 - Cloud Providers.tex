@@ -1,6 +1,6 @@
-% Created 2017-04-04 Tue 14:57
+% Created 2018-04-11 Wed 19:35
 % Intended LaTeX compiler: pdflatex
-\documentclass[presentation]{beamer}
+\documentclass[11pt]{article}
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage{graphicx}
@@ -14,22 +14,22 @@
 \usepackage{amssymb}
 \usepackage{capt-of}
 \usepackage{hyperref}
-\author{Petr Blaho}
+\author{Petr Blaho, Ilya Etingof}
 \date{\today}
 \title{PA200 - Cloud Providers}
 \hypersetup{
- pdfauthor={Petr Blaho},
+ pdfauthor={Petr Blaho, Ilya Etingof},
  pdftitle={PA200 - Cloud Providers},
  pdfkeywords={},
  pdfsubject={},
- pdfcreator={Emacs 25.1.1 (Org mode 9.0.5)}, 
+ pdfcreator={Emacs 25.3.1 (Org mode 9.1.9)}, 
  pdflang={English}}
 \begin{document}
 
 \maketitle
 
 \section*{Recap of Cloud Types}
-\label{sec:org9bfcd5b}
+\label{sec:orgbf39e2a}
 
 \begin{itemize}
 \item More detailed in Cloud Service Deliver Models
@@ -44,10 +44,10 @@ Process Management), mPaaS (Mobile)
 \end{itemize}
 
 \section*{Amazon}
-\label{sec:org0be265b}
+\label{sec:org168cbb3}
 
 \subsection*{AWS}
-\label{sec:org6e0d11f}
+\label{sec:org35f263a}
 \begin{itemize}
 \item Amazon Web Services
 \item Web service backend providing libraries for majority of modern web programming languages
@@ -57,7 +57,7 @@ Process Management), mPaaS (Mobile)
 \end{itemize}
 
 \subsection*{S3}
-\label{sec:orgd350ae6}
+\label{sec:org6a291d5}
 \begin{itemize}
 \item Simple Storage Service
 \item Provides API-driven Object storage
@@ -67,7 +67,7 @@ represent in high-level programming languages
 \end{itemize}
 
 \subsection*{EC2}
-\label{sec:org6d13f48}
+\label{sec:org2b2de64}
 \begin{itemize}
 \item Elastic Compute Cloud (IaaS)
 \item KVM-based
@@ -77,7 +77,7 @@ sell „Virtual private cloud“ to customers
 \end{itemize}
 
 \subsection*{Other}
-\label{sec:org8fdddd4}
+\label{sec:org3379d75}
 \begin{itemize}
 \item Elastic Beanstalk (PaaS)
 \item AWS Lambda (event-driven, serverless computing - FaaS)
@@ -87,10 +87,10 @@ sell „Virtual private cloud“ to customers
 \end{itemize}
 
 \section*{Google}
-\label{sec:org4568c81}
+\label{sec:org290a7fb}
 
 \section*{Cloud Platform}
-\label{sec:orgef2c774}
+\label{sec:orgf32f9b5}
 \begin{itemize}
 \item Rich platform exposing functionality over REST
 \item Primarily developed to support Google's core services (search, youtube, gmail)
@@ -99,7 +99,7 @@ sell „Virtual private cloud“ to customers
 \end{itemize}
 
 \section*{App Engine}
-\label{sec:org6559894}
+\label{sec:orgc964604}
 \begin{itemize}
 \item Web apps on Google's infrastructure (PaaS)
 \item Python, Java (JVM), Go, PHP, Node.js
@@ -108,7 +108,7 @@ sell „Virtual private cloud“ to customers
 \end{itemize}
 
 \section*{Compute Engine}
-\label{sec:orgc69e995}
+\label{sec:org0da389b}
 \begin{itemize}
 \item IaaS
 \item Compute Engine Unit (GCEU) - abstraction of computation power
@@ -116,7 +116,7 @@ sell „Virtual private cloud“ to customers
 \end{itemize}
 
 \section*{Storage}
-\label{sec:org59c1b3a}
+\label{sec:org8a7e934}
 \begin{itemize}
 \item IaaS for storage
 \item REST-like HTTP access
@@ -124,7 +124,7 @@ sell „Virtual private cloud“ to customers
 \end{itemize}
 
 \section*{BigQuery}
-\label{sec:orgfbf355b}
+\label{sec:org26a3f9e}
 \begin{itemize}
 \item web service (with REST-like interface)
 \item work with Storage
@@ -133,7 +133,7 @@ sell „Virtual private cloud“ to customers
 \end{itemize}
 
 \section*{Red Hat}
-\label{sec:org21c6b72}
+\label{sec:org6265114}
 \begin{itemize}
 \item Provider of solutions that can serve either as a private or public
 cloud
@@ -145,7 +145,7 @@ Data Virtualization, etc.)
 \end{itemize}
 
 \section*{oVirt}
-\label{sec:orgf134243}
+\label{sec:orgff97577}
 \begin{itemize}
 \item open source upstream for Red Hat Virtualization
 \item can manage networks, CPUs, storages
@@ -154,7 +154,7 @@ Data Virtualization, etc.)
 \end{itemize}
 
 \subsection*{oVirt Engine}
-\label{sec:org49e339e}
+\label{sec:orgefb654e}
 \begin{itemize}
 \item Java (GWT, WildFly)
 \item REST-style HTTP API
@@ -162,7 +162,7 @@ Data Virtualization, etc.)
 \end{itemize}
 
 \subsection*{oVirt Node}
-\label{sec:org1f553e9}
+\label{sec:org9ab3440}
 \begin{itemize}
 \item RHEL, CentOS, Fedora or Debian with KVM
 \item VDSM (Python daemon) manages resources and VMs
@@ -170,7 +170,7 @@ Data Virtualization, etc.)
 \end{itemize}
 
 \section*{OpenStack}
-\label{sec:org3ba76b3}
+\label{sec:org11f448f}
 \begin{itemize}
 \item open source platform for cloud computing (mainly IaaS)
 \item written in Python
@@ -179,21 +179,21 @@ Data Virtualization, etc.)
 \end{itemize}
 
 \subsection*{Identity (Keystone)}
-\label{sec:orga0762d4}
+\label{sec:orgfccbecf}
 \begin{itemize}
 \item central user management and authentication service
 \item can use directory service backend (LDAP)
 \end{itemize}
 
 \subsection*{Compute (Nova)}
-\label{sec:orgdf429b8}
+\label{sec:org1c80f54}
 \begin{itemize}
 \item layer on top of hypervisor(s)
 \item manages compute resources - VMs and containers
 \end{itemize}
 
 \subsection*{Networking (Neutron)}
-\label{sec:org9a05e22}
+\label{sec:org3ca2db7}
 \begin{itemize}
 \item manages networks and IP addresses for VMs
 \item can use SDN technologies (OpenFlow)
@@ -201,7 +201,7 @@ Data Virtualization, etc.)
 \end{itemize}
 
 \subsection*{Other}
-\label{sec:org4a33928}
+\label{sec:org52af264}
 \begin{itemize}
 \item Block Storage (Cinder) - many storage providers
 \item Image Storage (Glance) - images to boot from and to store snapshots of VMs to
@@ -210,7 +210,7 @@ Data Virtualization, etc.)
 \item Bare Metal (Ironic) - management of physical machines (PXE and IPMI as default)
 \end{itemize}
 \section*{OpenShift}
-\label{sec:org8cc8e1f}
+\label{sec:org58ca535}
 \begin{itemize}
 \item PaaS
 \item container based deployment and management
@@ -219,9 +219,9 @@ Data Virtualization, etc.)
 \end{itemize}
 
 \section*{IBM}
-\label{sec:org75aa9a6}
+\label{sec:org79e0469}
 \section*{SoftLayer}
-\label{sec:org23dc449}
+\label{sec:orge3be2ae}
 \begin{itemize}
 \item IaaS
 \item Servers (Bare Metal, Virtual)
@@ -230,7 +230,7 @@ Data Virtualization, etc.)
 \item Management (Monitoring \& Reporting, Managed Hosting)
 \end{itemize}
 \section*{Bluemix}
-\label{sec:org98fc0b0}
+\label{sec:orgf3987b6}
 \begin{itemize}
 \item PaaS
 \item based on Cloud Foundry
@@ -239,7 +239,7 @@ Data Virtualization, etc.)
 \item include OpenWhisk (similar to Amazon Lambda or Google Cloud Functions)
 \end{itemize}
 \section*{Heroku}
-\label{sec:org4273c49}
+\label{sec:org1b91267}
 \begin{itemize}
 \item PaaS
 \item Ruby, Java, Node.js, Scala, Clojure, Python, PHP, and Go
@@ -247,14 +247,14 @@ Data Virtualization, etc.)
 \item Connect for Salesforce
 \end{itemize}
 \section*{Cloud Foundry}
-\label{sec:org1249fb9}
+\label{sec:org33ab929}
 \begin{itemize}
 \item PaaS
 \item Ruby, Go, Java, Node.js, Python, PHP, .NET
 \item IBM, Pivotal, HPE, GE, Huawei - certified providers
 \end{itemize}
 \section*{Recap}
-\label{sec:orga36597a}
+\label{sec:orgfdf4b62}
 \begin{itemize}
 \item not a full enumeration of subjects on market
 \item offerings are different in technologies, services and prices
