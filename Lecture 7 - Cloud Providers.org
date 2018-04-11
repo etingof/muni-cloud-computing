@@ -1,10 +1,9 @@
 #+TITLE: PA200 - Cloud Providers
-#+AUTHOR: Petr Blaho
-#+EMAIL: pblaho@redhat.com
-#+LaTeX_CLASS: beamer
-#+BEAMER_FRAME_LEVEL: 3
+#+AUTHOR: Petr Blaho, Ilya Etingof
+#+EMAIL: pblaho@redhat.com, ietingof@redhat.com
 #+REVEAL_HLEVEL: 3
 #+REVEAL_THEME: solarized
+#+REVEAL_EXTRA_CSS: pa-200.css
 #+OPTIONS: num:nil toc:nil
 #+OPTIONS: reveal_single_file:t
 
